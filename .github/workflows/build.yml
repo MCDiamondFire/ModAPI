@@ -28,6 +28,7 @@ jobs:
         with:
           repository: ${{ github.repository }}.wiki.git
           path: wiki
+          ref: master
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Copy generated wiki
