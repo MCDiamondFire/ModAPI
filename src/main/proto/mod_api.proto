@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+option java_package = "com.mcdiamondfire.proto";
+option java_multiple_files = true;
+
+// Sent when the player joins the server.
+message ServerInfo {
+	// Represents a server type.
+	enum DFServerType {
+		MAIN = 0; // Main nodes.
+		BETA = 1; // Node beta.
+		DEV = 2; // Dev nodes.
+		PUBLIC_TEST = 3; // Unused.
+		PUBLIC_EVENT = 4; // Event node.
+		LOCAL_DEV = 5; // Local dev servers.
+		PRIVATE = 6; // Private nodes.
+	}
+
+	string protocol_version = 1; // The version of the protocol in semver format.
+	string bungee_name = 2; // The identifier of the server.
+	string patch_version = 3; // The patch version of the server.
+	DFServerType server_type = 4; // The type of the server.
+}
+
+// Sent when the player joins the server.
+message ServerBooster {
+	message ActiveBooster {
+		bool tipped = 1; // Whether the booster was tipped by the player.
+		int32 multiplier = 2; // The multiplier of the booster (e.g. 2 for 2x).
+		int64 time_remaining = 3; // The time remaining of the booster in milliseconds.
+		string user_name = 4; // The name of the player who activated the booster.
+		string user_uuid = 5; // The UUID of the player who activated the booster (36 characters including dashes).
+	}
+
+	bool is_active = 1; // Whether a booster is currently active.
+	optional ActiveBooster active_booster = 2; // The active booster, if any.
+}
+
+// Sent when the player joins a plot.
+message PlotInfo {
+	message PlotPlayer {
+		string user_name = 1; // The name of the player.
+		string user_uuid = 2; // The UUID of the player (36 characters including dashes).
+		bool is_owner = 3; // Whether the player is the owner of the plot.
+		bool is_developer = 4; // Whether the player has developer permissions on the plot.
+		bool is_builder = 5; // Whether the player has builder permissions on the plot.
+		Mode mode = 6; // The mode the player is in.
+	}
+
+	int32 id = 1; // The identifier of the plot.
+	string name = 2; // The name of the plot as a serialized component in JSON format.
+	string owner_name = 3; // The name of the owner of the plot.
+	string owner_uuid = 4; // The UUID of the owner of the plot (36 characters including dashes).
+	int32 plot_size = 5; // The size of the plot (1 = Basic, 2 = Large, 3 = Massive, 4 = Mega).
+	int32 plot_min_x = 6; // The minimum X coordinate of the plot.
+	int32 plot_min_z = 7; // The minimum Z coordinate of the plot.
+	int32 spawn_pos_x = 8; // The spawn X coordinate of the plot.
+	int32 spawn_pos_y = 9; // The spawn Y coordinate of the plot.
+	int32 spawn_pos_z = 10; // The spawn Z coordinate of the plot.
+	bool is_owner = 11; // Whether the player is the owner of the plot.
+	bool is_developer = 12; // Whether the player has developer permissions on the plot.
+	bool is_builder = 13; // Whether the player has builder permissions on the plot.
+	repeated string tags = 14; // The tags of this plot (e.g. "adventure", "combat", ...).
+	string handle = 15; // The handle of the plot, or empty if none is set.
+	repeated PlotPlayer players = 16; // The players currently on the plot.
+}
+
+// Sent when the player joins the server.
+message PlayerCurrency {
+	// Represents an unclaimed ticket bundle.
+	message TicketBundle {
+		string event_name = 1; // The name of the event the bundle is from.
+		string prize_name = 2; // The name of the prize the bundle is for.
+		int32 ticket_amount = 3; // The amount of tickets in the bundle.
+	}
+
+	int32 tokens = 1; // The amount of tokens the player has.
+	int32 tickets = 2; // The amount of tickets the player has.
+	repeated TicketBundle ticket_bundles = 3; // The unclaimed ticket bundles the player has.
+	int32 sparks = 4; // The amount of sparks the player has.
+}
+
+// Sent when the player joins the server, admins will have all permissions set to their highest level.
+message PlayerPermissions {
+	int32 donor = 1; // The donor rank level of the player. (Noble, Emperor, Mythic, Overlord)
+	int32 support = 2; // The support rank level of the player. (JrHelper, Helper, SrHelper)
+	int32 mod = 3; // The mod rank level of the player. (JrMod, Mod, SrMod)
+	int32 admin = 4; // The admin rank level of the player. (Dev, Admin, Owner)
+}
+
+// Represents a player's mode.
+enum Mode {
+	PLAY = 0; // Play mode.
+	BUILD = 1; // Build mode.
+	DEV = 2; // Dev mode.
+	SPY = 3; // Code-spectate mode.
+	VANISH = 4; // Mod vanish mode.
+	IDLE = 5; // Spawn mode.
+	VERIFY = 6; // Bot check mode.
+}
+
+// Sent when the player switches modes.
+message PlayerMode {
+	Mode mode = 1; // The mode the player is in.
+}
