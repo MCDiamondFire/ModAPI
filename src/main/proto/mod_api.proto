@@ -24,6 +24,7 @@ message ServerInfo {
 
 // Sent when the player joins the server.
 message ServerBooster {
+	// Represents an active booster.
 	message ActiveBooster {
 		bool tipped = 1; // Whether the booster was tipped by the player.
 		int32 multiplier = 2; // The multiplier of the booster (e.g. 2 for 2x).
@@ -38,6 +39,7 @@ message ServerBooster {
 
 // Sent when the player joins a plot.
 message PlotInfo {
+	// Represents a player in a plot.
 	message PlotPlayer {
 		string user_name = 1; // The name of the player.
 		string user_uuid = 2; // The UUID of the player (36 characters including dashes).
