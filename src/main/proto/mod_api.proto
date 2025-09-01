@@ -53,6 +53,7 @@ message PlotInfo {
 		PlayerMode mode = 6; // The mode the player is in.
 	}
 
+	// Represents a tag, also known as a category, a plot can have.
 	enum PlotTag {
 		ARCADE = 0; // One or multiple fast and fun minigames!
 		VERSUS = 1; // Compete with other players!
