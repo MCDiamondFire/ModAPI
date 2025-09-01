@@ -94,11 +94,11 @@ message PlayerPermissions {
 enum Mode {
 	PLAY = 0; // Play mode.
 	BUILD = 1; // Build mode.
-	DEV = 2; // Dev mode.
-	SPY = 3; // Code-spectate mode.
+	CODE = 2; // Dev (code) mode.
+	STALK = 3; // Code spectate (stalk) mode.
 	VANISH = 4; // Mod vanish mode.
-	IDLE = 5; // Spawn mode.
-	VERIFY = 6; // Bot check mode.
+	SPAWN = 5; // Spawn (idle) mode.
+	VERIFY = 6; // Account check (verify) mode.
 }
 
 // Sent when the player switches modes.
