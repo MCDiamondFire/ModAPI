@@ -6,8 +6,6 @@ import java.util.*;
 
 /**
  * Holds a mapping of plugin message classes to their string identifiers.
- *
- * @since 1.0.0
  */
 public final class PluginMessages {
 	
@@ -36,7 +34,6 @@ public final class PluginMessages {
 	 *
 	 * @param clazz the plugin message class
 	 * @return the identifier for the message class, or null if not registered
-	 * @since 1.0.0
 	 */
 	public static String getMessageId(final Class<? extends Message> clazz) {
 		return messages.get(clazz);
@@ -46,7 +43,6 @@ public final class PluginMessages {
 	 * Gets an unmodifiable view of the registered plugin messages.
 	 *
 	 * @return a mapping of message classes to their identifiers
-	 * @since 1.0.0
 	 */
 	public static Map<Class<? extends Message>, String> getMessages() {
 		return Collections.unmodifiableMap(messages);

@@ -6,8 +6,6 @@ plugins {
 	id("maven-publish")
 }
 
-val protobufVersion: String by project
-
 repositories {
 	mavenCentral()
 }

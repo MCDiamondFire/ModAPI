@@ -24,7 +24,6 @@ public final class PluginMessageUtility {
 	 * @param message the protobuf message to serialize
 	 * @return the serialized JSON string with packet ID
 	 * @throws InvalidProtocolBufferException if serialization fails
-	 * @since 1.0.0
 	 */
 	public static String serializeMessage(final Message message) throws InvalidProtocolBufferException {
 		final String json = JsonFormat.printer().print(message);
@@ -45,7 +44,6 @@ public final class PluginMessageUtility {
 	 * @throws IllegalStateException          if the JSON does not contain a valid packet ID
 	 * @throws RuntimeException               if reflection fails
 	 * @throws ClassCastException             if the built message is not of the expected type
-	 * @since 1.0.0
 	 */
 	public static <T extends Message> T deserializeMessage(final String json, final Class<T> clazz) throws InvalidProtocolBufferException {
 		try {
