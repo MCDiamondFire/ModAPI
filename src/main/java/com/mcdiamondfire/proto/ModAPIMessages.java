@@ -5,9 +5,9 @@ import com.google.protobuf.Message;
 import java.util.*;
 
 /**
- * Holds a mapping of plugin message classes to their string identifiers.
+ * Holds a mapping of ModAPI message classes to their string identifiers.
  */
-public final class PluginMessages {
+public final class ModAPIMessages {
 	
 	private static final Map<Class<? extends Message>, String> messages = new HashMap<>();
 	
@@ -25,14 +25,14 @@ public final class PluginMessages {
 		messages.put(PlayerSwitchMode.class, "player_switch_mode");
 	}
 	
-	private PluginMessages() {
+	private ModAPIMessages() {
 		// Prevent instantiation.
 	}
 	
 	/**
-	 * Gets the identifier for a given plugin message class.
+	 * Gets the identifier for a given ModAPI message class.
 	 *
-	 * @param clazz the plugin message class
+	 * @param clazz the ModAPI message class
 	 * @return the identifier for the message class, or null if not registered
 	 */
 	public static String getMessageId(final Class<? extends Message> clazz) {
@@ -40,7 +40,7 @@ public final class PluginMessages {
 	}
 	
 	/**
-	 * Gets an unmodifiable view of the registered plugin messages.
+	 * Gets an unmodifiable view of the registered ModAPI messages.
 	 *
 	 * @return a mapping of message classes to their identifiers
 	 */
