@@ -38,8 +38,8 @@ jobs:
       - name: Update Wiki
         working-directory: wiki
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name "${{ github.event.head_commit.committer.name }}"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Proto.md
-          git commit -m "chore: update protobuf API docs"
+          git commit -m "${{ github.event.head_commit.message }}"
           git push origin HEAD:master
