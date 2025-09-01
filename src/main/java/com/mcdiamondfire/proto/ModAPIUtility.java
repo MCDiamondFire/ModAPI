@@ -11,6 +11,8 @@ import java.lang.reflect.InvocationTargetException;
  */
 public final class ModAPIUtility {
 	
+	private static final JsonFormat.Parser JSON_PARSER = JsonFormat.parser().ignoringUnknownFields();
+	
 	private ModAPIUtility() {
 		// Prevent instantiation.
 	}
@@ -50,7 +52,7 @@ public final class ModAPIUtility {
 			final String cleanedJson = jsonObject.toString();
 			
 			final Message.Builder builder = (Message.Builder) clazz.getMethod("newBuilder").invoke(null);
-			JsonFormat.parser().merge(cleanedJson, builder);
+			JSON_PARSER.merge(cleanedJson, builder);
 			//noinspection unchecked -- on the caller to ensure the type is correct.
 			return (T) builder.build();
 		} catch (final NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
