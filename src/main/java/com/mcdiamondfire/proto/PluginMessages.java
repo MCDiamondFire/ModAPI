@@ -14,11 +14,17 @@ public final class PluginMessages {
 	private static final Map<Class<? extends Message>, String> messages = new HashMap<>();
 	
 	static {
+		// Server.
+		messages.put(ServerInfo.class, "server_info");
 		messages.put(ServerBooster.class, "server_booster");
+		
+		// Plot.
 		messages.put(PlotInfo.class, "plot_info");
+		
+		// Player.
 		messages.put(PlayerCurrency.class, "player_currency");
 		messages.put(PlayerPermissions.class, "player_permissions");
-		messages.put(PlayerMode.class, "player_mode");
+		messages.put(PlayerSwitchMode.class, "player_switch_mode");
 	}
 	
 	private PluginMessages() {
