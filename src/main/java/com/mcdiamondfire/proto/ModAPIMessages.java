@@ -1,6 +1,7 @@
 package com.mcdiamondfire.proto;
 
 import com.google.protobuf.Message;
+import com.mcdiamondfire.proto.messages.*;
 
 import java.util.*;
 
@@ -9,34 +10,56 @@ import java.util.*;
  */
 public final class ModAPIMessages {
 	
-	private static final Map<Class<? extends Message>, String> messages = new HashMap<>();
+	private static final Map<Class<? extends Message>, String> CLASS_ID_MAP = new HashMap<>();
+	private static final Map<String, Class<? extends Message>> ID_CLASS_MAP = new HashMap<>();
 	
 	static {
 		// Server.
-		messages.put(ServerInfo.class, "server_info");
-		messages.put(ServerBooster.class, "server_booster");
+		registerMessage(ServerInfo.class, "server_info");
+		registerMessage(ServerBooster.class, "server_booster");
 		
 		// Plot.
-		messages.put(PlotInfo.class, "plot_info");
+		registerMessage(PlotInfo.class, "plot_info");
 		
 		// Player.
-		messages.put(PlayerCurrency.class, "player_currency");
-		messages.put(PlayerPermissions.class, "player_permissions");
-		messages.put(PlayerSwitchMode.class, "player_switch_mode");
+		registerMessage(PlayerCurrency.class, "player_currency");
+		registerMessage(PlayerPermissions.class, "player_permissions");
+		registerMessage(PlayerSwitchMode.class, "player_switch_mode");
 	}
 	
 	private ModAPIMessages() {
 		// Prevent instantiation.
 	}
 	
+	private static void registerMessage(final Class<? extends Message> clazz, final String id) {
+		if (CLASS_ID_MAP.containsKey(clazz)) {
+			throw new IllegalStateException("Message class already registered: " + clazz.getName());
+		}
+		if (ID_CLASS_MAP.containsKey(id)) {
+			throw new IllegalStateException("Message ID already registered: " + id);
+		}
+		CLASS_ID_MAP.put(clazz, id);
+		ID_CLASS_MAP.put(id, clazz);
+	}
+	
 	/**
 	 * Gets the identifier for a given ModAPI message class.
 	 *
 	 * @param clazz the ModAPI message class
-	 * @return the identifier for the message class, or null if not registered
+	 * @return an Optional containing the identifier or empty if not registered
 	 */
-	public static String getMessageId(final Class<? extends Message> clazz) {
-		return messages.get(clazz);
+	public static Optional<String> getMessageId(final Class<? extends Message> clazz) {
+		return Optional.ofNullable(CLASS_ID_MAP.get(clazz));
+	}
+	
+	/**
+	 * Gets the ModAPI message class for a given identifier.
+	 *
+	 * @param id the identifier of the ModAPI message
+	 * @return an Optional containing the ModAPI message class or empty if not registered
+	 */
+	public static Optional<Class<? extends Message>> getMessageClass(final String id) {
+		return Optional.ofNullable(ID_CLASS_MAP.get(id));
 	}
 	
 	/**
@@ -45,7 +68,7 @@ public final class ModAPIMessages {
 	 * @return a mapping of message classes to their identifiers
 	 */
 	public static Map<Class<? extends Message>, String> getMessages() {
-		return Collections.unmodifiableMap(messages);
+		return Collections.unmodifiableMap(CLASS_ID_MAP);
 	}
 	
 }
