@@ -109,10 +109,11 @@ message PlayerCurrency {
 message PlayerPermissions {
 	int32 donor = 1; // The donor rank level of the player. (Noble, Emperor, Mythic, Overlord)
 	int32 vip = 2; // The VIP rank level of the player. (VIP)
-	int32 sponsor = 3; // The sponsor rank level of the player. (Tier 1, Tier 2, Tier 3)
-	int32 support = 4; // The support rank level of the player. (JrHelper, Helper, SrHelper)
-	int32 moderation = 5; // The mod rank level of the player. (JrMod, Mod, SrMod)
-	int32 admin = 6; // The admin rank level of the player. (Dev, Admin, Owner)
+	int32 qa = 3; // The QA rank level of the player. (QA)
+	int32 youtuber = 4; // The YouTube rank level of the player. (YouTube)
+	int32 support = 5; // The support rank level of the player. (JrHelper, Helper, SrHelper)
+	int32 moderation = 6; // The mod rank level of the player. (JrMod, Mod, SrMod)
+	int32 admin = 7; // The admin rank level of the player. (Dev, Admin, Owner)
 }
 
 // Represents a player's mode.
