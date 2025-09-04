@@ -2,8 +2,9 @@ package com.mcdiamondfire.proto;
 
 import com.google.protobuf.Message;
 import com.mcdiamondfire.proto.messages.clientbound.player.*;
-import com.mcdiamondfire.proto.messages.clientbound.plot.S2CPlotInfo;
+import com.mcdiamondfire.proto.messages.clientbound.plot.*;
 import com.mcdiamondfire.proto.messages.clientbound.server.*;
+import com.mcdiamondfire.proto.messages.serverbound.player.*;
 
 import java.util.*;
 
@@ -16,17 +17,31 @@ public final class ModAPIMessages {
 	private static final Map<String, Class<? extends Message>> ID_CLASS_MAP = new HashMap<>();
 	
 	static {
+		
+		// Client-bound.
+		
 		// Server.
 		registerMessage(S2CServerInfo.class, "server_info");
 		registerMessage(S2CServerBooster.class, "server_booster");
 		
 		// Plot.
 		registerMessage(S2CPlotInfo.class, "plot_info");
+		registerMessage(S2CTemplate.class, "template");
 		
 		// Player.
 		registerMessage(S2CPlayerCurrency.class, "player_currency");
 		registerMessage(S2CPlayerPermissions.class, "player_permissions");
 		registerMessage(S2CPlayerSwitchMode.class, "player_switch_mode");
+		
+		// Server-bound.
+		
+		// Plot.
+		registerMessage(C2SGetTemplate.class, "get_template");
+		
+		// Player.
+		registerMessage(C2SPlayerTeleport.class, "player_teleport");
+		
+		
 	}
 	
 	private ModAPIMessages() {
