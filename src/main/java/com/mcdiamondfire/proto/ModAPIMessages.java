@@ -1,7 +1,9 @@
 package com.mcdiamondfire.proto;
 
 import com.google.protobuf.Message;
-import com.mcdiamondfire.proto.messages.*;
+import com.mcdiamondfire.proto.messages.clientbound.player.*;
+import com.mcdiamondfire.proto.messages.clientbound.plot.S2CPlotInfo;
+import com.mcdiamondfire.proto.messages.clientbound.server.*;
 
 import java.util.*;
 
@@ -15,16 +17,16 @@ public final class ModAPIMessages {
 	
 	static {
 		// Server.
-		registerMessage(ServerInfo.class, "server_info");
-		registerMessage(ServerBooster.class, "server_booster");
+		registerMessage(S2CServerInfo.class, "server_info");
+		registerMessage(S2CServerBooster.class, "server_booster");
 		
 		// Plot.
-		registerMessage(PlotInfo.class, "plot_info");
+		registerMessage(S2CPlotInfo.class, "plot_info");
 		
 		// Player.
-		registerMessage(PlayerCurrency.class, "player_currency");
-		registerMessage(PlayerPermissions.class, "player_permissions");
-		registerMessage(PlayerSwitchMode.class, "player_switch_mode");
+		registerMessage(S2CPlayerCurrency.class, "player_currency");
+		registerMessage(S2CPlayerPermissions.class, "player_permissions");
+		registerMessage(S2CPlayerSwitchMode.class, "player_switch_mode");
 	}
 	
 	private ModAPIMessages() {
