@@ -52,6 +52,7 @@ message S2CPlotInfo {
 	repeated PlotPlayer players = 16; // The players currently on the plot.
 }
 
+// Send as a response to a C2SGetTemplate message.
 message S2CTemplate {
-	string json = 1;
+	string json = 1; // The template as a JSON string.
 }

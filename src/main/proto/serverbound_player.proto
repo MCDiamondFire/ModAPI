@@ -7,5 +7,5 @@ option java_multiple_files = true;
 // Teleports the player to the specified location,
 // the player must be building or coding, and the location will be clamped to the plot boundaries.
 message C2SPlayerTeleport {
-	Location location = 1;
+	Location location = 1; // The location to teleport to.
 }

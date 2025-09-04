@@ -7,5 +7,5 @@ option java_multiple_files = true;
 // Requests the template at the given location,
 // a S2CTemplate packet will be sent as a response.
 message C2SGetTemplate {
-	Location location = 1;
+	Location location = 1; // The location of the code block to get the template of.
 }

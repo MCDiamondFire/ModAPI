@@ -5,11 +5,11 @@ option java_multiple_files = true;
 
 // Represents a location.
 message Location {
-	double x = 1;
-	double y = 2;
-	double z = 3;
-	float pitch = 4;
-	float yaw = 5;
+	double x = 1; // The X coordinate.
+	double y = 2; // The Y coordinate.
+	double z = 3; // The Z coordinate.
+	float pitch = 4; // The pitch.
+	float yaw = 5; // The yaw.
 }
 
 // Represents a player's mode.
