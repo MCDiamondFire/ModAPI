@@ -53,6 +53,6 @@ message S2CPlotInfo {
 }
 
 // Send as a response to a C2SGetTemplate message.
-message S2CTemplate {
+message S2CCodeTemplate {
 	string json = 1; // The template as a JSON string.
 }

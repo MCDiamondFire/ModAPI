@@ -21,25 +21,25 @@ public final class ModAPIMessages {
 		// Client-bound.
 		
 		// Server.
-		registerMessage(S2CServerInfo.class, "server_info");
-		registerMessage(S2CServerBooster.class, "server_booster");
+		registerMessage(S2CServerInfo.class, "s2c_server_info");
+		registerMessage(S2CServerBooster.class, "s2c_server_booster");
 		
 		// Plot.
-		registerMessage(S2CPlotInfo.class, "plot_info");
-		registerMessage(S2CTemplate.class, "template");
+		registerMessage(S2CPlotInfo.class, "s2c_plot_info");
+		registerMessage(S2CCodeTemplate.class, "s2c_code_template");
 		
 		// Player.
-		registerMessage(S2CPlayerCurrency.class, "player_currency");
-		registerMessage(S2CPlayerPermissions.class, "player_permissions");
-		registerMessage(S2CPlayerSwitchMode.class, "player_switch_mode");
+		registerMessage(S2CPlayerCurrency.class, "s2c_player_currency");
+		registerMessage(S2CPlayerPermissions.class, "s2c_player_permissions");
+		registerMessage(S2CPlayerSwitchMode.class, "s2c_player_switch_mode");
 		
 		// Server-bound.
 		
 		// Plot.
-		registerMessage(C2SGetTemplate.class, "get_template");
+		registerMessage(C2SGetTemplate.class, "c2s_get_template");
 		
 		// Player.
-		registerMessage(C2SPlayerTeleport.class, "player_teleport");
+		registerMessage(C2SPlayerTeleport.class, "c2s_player_teleport");
 		
 		
 	}
