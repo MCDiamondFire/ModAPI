@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "data_type.proto";
+
+option java_package = "com.mcdiamondfire.proto.messages.serverbound.player";
+option java_multiple_files = true;
+
+// Requests the template at the given location,
+// a S2CTemplate packet will be sent as a response.
+message C2SGetTemplate {
+	Location location = 1;
+}

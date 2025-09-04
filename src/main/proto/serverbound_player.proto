@@ -1,0 +1,11 @@
+syntax = "proto3";
+import "data_type.proto";
+
+option java_package = "com.mcdiamondfire.proto.messages.serverbound.player";
+option java_multiple_files = true;
+
+// Teleports the player to the specified location,
+// the player must be building or coding, and the location will be clamped to the plot boundaries.
+message C2SPlayerTeleport {
+	Location location = 1;
+}

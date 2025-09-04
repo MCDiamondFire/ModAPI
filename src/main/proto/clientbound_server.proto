@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_package = "com.mcdiamondfire.proto.messages.clientbound.server";
+option java_multiple_files = true;
+
+// Sent when the player joins the server.
+message S2CServerInfo {
+	// Represents a server type.
+	enum DFServerType {
+		MAIN = 0; // Main nodes.
+		BETA = 1; // Node beta.
+		DEV = 2; // Dev nodes.
+		PUBLIC_TEST = 3; // Unused.
+		PUBLIC_EVENT = 4; // Event node.
+		LOCAL_DEV = 5; // Local dev servers.
+		PRIVATE = 6; // Private nodes.
+	}
+
+	string protocol_version = 1; // The version of the protocol in semver format, major versions are not guaranteed to be compatible.
+	string bungee_name = 2; // The identifier of the server.
+	string patch_version = 3; // The patch version of the server.
+	DFServerType server_type = 4; // The type of the server.
+}
+
+// Sent when the player joins the server.
+message S2CServerBooster {
+	// Represents an active booster.
+	message ActiveBooster {
+		bool tipped = 1; // Whether the booster was tipped by the player.
+		int32 multiplier = 2; // The multiplier of the booster (e.g. 2 for 2x).
+		int64 time_remaining = 3; // The time remaining of the booster in milliseconds.
+		string user_name = 4; // The name of the player who activated the booster.
+		string user_uuid = 5; // The UUID of the player who activated the booster (36 characters including dashes).
+	}
+
+	bool is_active = 1; // Whether a booster is currently active.
+	optional ActiveBooster active_booster = 2; // The active booster, if any.
+}

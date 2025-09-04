@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "com.mcdiamondfire.proto.messages.datatype";
+option java_multiple_files = true;
+
+// Represents a location.
+message Location {
+	double x = 1;
+	double y = 2;
+	double z = 3;
+	float pitch = 4;
+	float yaw = 5;
+}
+
+// Represents a player's mode.
+// Warning: IDs for vanish, idle, and verify will change in an upcoming refactor, the IDs here post-refactor.
+// I hope this only releases after the refactor.
+enum PlayerMode {
+	PLAY = 0; // Play mode.
+	BUILD = 1; // Build mode.
+	DEV = 2; // Dev (code) mode.
+	CODE_STALK = 3; // Code spectate (stalk) mode.
+	VERIFY = 4; // Account check (verify) mode.
+	VANISH = 5; // Mod vanish mode.
+	IDLE = 6; // Spawn (idle) mode.
+}
