@@ -32,6 +32,7 @@ public final class ModAPIMessages {
 		registerMessage(S2CPlayerCurrency.class, "s2c_player_currency");
 		registerMessage(S2CPlayerPermissions.class, "s2c_player_permissions");
 		registerMessage(S2CPlayerSwitchMode.class, "s2c_player_switch_mode");
+		registerMessage(S2CChestReference.class, "s2c_chest_reference");
 		
 		// Server-bound.
 		

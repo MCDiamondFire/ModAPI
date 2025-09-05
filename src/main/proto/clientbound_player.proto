@@ -34,3 +34,73 @@ message S2CPlayerPermissions {
 message S2CPlayerSwitchMode {
 	PlayerMode mode = 1; // The mode the player is in.
 }
+
+// Sent when the player opens a code chest.
+message S2CChestReference {
+	// Represents a value type.
+	enum Value {
+		ANY_TYPE = 0; // Any value.
+		VARIABLE = 1; // Variable.
+		NUMBER = 2; // Number.
+		TEXT = 3; // String.
+		COMPONENT = 4; // Styled text.
+		LOCATION = 5; // Location.
+		VECTOR = 6; // Vector.
+		LIST = 7; // List.
+		DICT = 8; // Dictionary.
+		POTION = 9; // Potion effect.
+		PARTICLE = 10; // Particle effect.
+		SOUND = 11; // Sound.
+		SPAWN_EGG = 12; // Spawn egg.
+		PROJECTILE = 13; // Projectile.
+		VEHICLE = 14; // Vehicle.
+		ENTITY_TYPE = 15; // Entity type.
+		BLOCK = 16; // Block.
+		BLOCK_TAG = 17; // Block tag.
+		ITEM = 18; // Item.
+		BYTE = 19; // Byte.
+		NONE = 20; // None.
+	}
+
+	// Represents a note in the notes field of an action icon.
+	message Note {
+		repeated string note = 1; // The note as a list of serialized components in JSON format.
+	}
+
+	// Represents an argument for the chest.
+	message Argument {
+		Value type = 1; // The type of the argument.
+		bool plural = 2; // Whether the argument is plural.
+		bool optional = 3; // Whether the argument is optional.
+		repeated string description = 4; // The description of the argument as a list of serialized components in JSON format.
+		repeated Note notes = 5; // Notes for the argument.
+	}
+
+	// Represents a return value of an action.
+	message ReturnValue {
+
+		// A standard return value, which contains the value and descriptions fields.
+		message Standard {
+			Value value_type = 1;
+			repeated string descriptions = 2;
+		}
+
+		// A simple return value, which only contains a text field.
+		message Simple {
+			string text = 1;
+		}
+
+		oneof return_value_type {
+			Standard standard_value = 1;
+			Simple simple_value = 2;
+		}
+	}
+
+	string material = 1; // The material of the action icon as a namespaced key (e.g. "minecraft:book").
+	string name = 2; // The name of the action as a serialized component in JSON format.
+	repeated string description = 3; // The description of the action icon as a list of serialized components in JSON format.
+	repeated Note additional_info = 4; // The additional info field of the action icon as a list of serialized components in JSON format.
+	int32 tags = 5; // The amount of tags the action has.
+	repeated Argument arguments = 6; // The arguments for the chest.
+	repeated ReturnValue return_values = 7; // The return values of the action.
+}
