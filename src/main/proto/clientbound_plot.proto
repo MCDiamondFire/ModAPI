@@ -52,7 +52,20 @@ message S2CPlotInfo {
 	repeated PlotPlayer players = 16; // The players currently on the plot.
 }
 
-// Send as a response to a C2SGetTemplate message.
+// Sent as a response to a C2SGetTemplate message,
+// error is true if the player does not have developer permissions on the plot,
+// or if the location is not a valid code block position
 message S2CCodeTemplate {
-	string json = 1; // The template as a JSON string.
+	oneof response {
+		string json = 1; // The template as a JSON string.
+		bool error = 2; // Whether an error occurred while getting the template.
+	}
+}
+
+// Sent as a response to a C2SPlaceTemplate message,
+// error is true if the player does not have developer permissions on the plot,
+// or if the location is not a valid code block position,
+// or if the template overrides any blocks / exits the plot bounds.
+message S2CPlaceTemplateResult {
+	bool error = 1; // Whether an error occurred while placing the template.
 }

@@ -5,7 +5,22 @@ option java_package = "com.mcdiamondfire.proto.messages.serverbound.player";
 option java_multiple_files = true;
 
 // Requests the template at the given location,
-// a S2CTemplate packet will be sent as a response.
+// requires the player to have developer permissions on the plot,
+// and the location being a valid code block position.
+// An S2CCodeTemplate packet will be sent as a response.
 message C2SGetTemplate {
 	Location location = 1; // The location of the code block to get the template of.
+}
+
+// Requests to place a template at the given location,
+// requires the player to have developer permissions on the plot,
+// the location being a valid code block position,
+// and that the template will not override any blocks nor exit the plot bounds.
+// An S2CPlaceTemplateResult packet will be sent as a response.
+message C2SPlaceTemplate {
+	Location location = 1; // The location of the code block to place the template at.
+	oneof template {
+		string json = 2; // The template JSON string.
+		string data = 3; // The template code data.
+	}
 }
