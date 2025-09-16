@@ -38,8 +38,8 @@ public final class ModAPIMessages {
 		// Server-bound.
 		
 		// Plot.
-		registerMessage(C2SGetTemplate.class, "c2s_get_template");
-		registerMessage(C2SPlaceTemplate.class, "c2s_place_template");
+		registerMessage(C2SCodeOperation.class, "c2s_code_operation");
+		registerMessage(C2SMultiCodeOperations.class, "c2s_multi_code_operations");
 		
 		// Player.
 		registerMessage(C2SPlayerTeleport.class, "c2s_player_teleport");

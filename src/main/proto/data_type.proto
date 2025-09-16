@@ -24,3 +24,19 @@ enum PlayerMode {
 	VANISH = 5; // Mod vanish mode.
 	IDLE = 6; // Spawn (idle) mode.
 }
+
+// Represents a code template.
+message Template {
+	oneof template {
+		string json = 2; // The template JSON string.
+		string data = 3; // The template code data.
+	}
+}
+
+// Represents a line starter type.
+enum LineStarterType {
+	PLAYER_EVENT = 0; // A Player Event.
+	ENTITY_EVENT = 1; // An Entity Event.
+	FUNCTION = 2; // A Function.
+	PROCESS = 3; // A Process.
+}
