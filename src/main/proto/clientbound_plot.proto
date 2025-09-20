@@ -67,3 +67,14 @@ message S2CCodeOperationResult {
 message S2CMultiCodeOperationsResult {
 	repeated S2CCodeOperationResult results = 1; // The results of all operations requested.
 }
+
+// Sent when the player joins a plot or when the line starters change,
+// requires the player to have developer permissions on the plot.
+message S2CPlotLineStarters {
+	message CodeLineStarter {
+		Location location = 1;
+		optional S2CChestReference chest = 2;
+	}
+
+	repeated CodeLineStarter line_starter = 1;
+}

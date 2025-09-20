@@ -62,8 +62,8 @@ message ReplaceByBlockOperation {
 	Template template = 3; // The template to replace the code block with.
 }
 
-// Requests a code operation.
-// An S2CCodeOperationResult packet will be sent as a response, the relevant field will be set depending on the operation requested.
+// Requests to execute a code operation.
+// An S2CCodeOperationResult message will be sent as a response, the relevant field will be set depending on the operation requested.
 message C2SCodeOperation {
 	oneof operation {
 		GetByLocationOperation get_by_location = 1; // The operation to get the template for the code block at the given location.
@@ -76,8 +76,8 @@ message C2SCodeOperation {
 	}
 }
 
-// Requests multiple code operations in one packet.
-// An S2CMultiCodeOperationResult packet will be sent as a response, containing the results of all operations requested.
+// Requests to execute multiple code operations in one message.
+// An S2CMultiCodeOperationResult message will be sent as a response, containing the results of all operations requested.
 message C2SMultiCodeOperations {
 	repeated C2SCodeOperation operations = 1; // The operations to perform.
 }
