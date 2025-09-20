@@ -26,8 +26,8 @@ public final class ModAPIMessages {
 		
 		// Plot.
 		registerMessage(S2CPlotInfo.class, "s2c_plot_info");
-		registerMessage(S2CCodeTemplate.class, "s2c_code_template");
-		registerMessage(S2CPlaceTemplateResult.class, "s2c_place_template_result");
+		registerMessage(S2CCodeOperationResult.class, "s2c_code_operation_result");
+		registerMessage(S2CMultiCodeOperationsResult.class, "s2c_multi_code_operations_result");
 		
 		// Player.
 		registerMessage(S2CPlayerCurrency.class, "s2c_player_currency");

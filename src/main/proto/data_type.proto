@@ -34,9 +34,8 @@ message Template {
 }
 
 // Represents a line starter type.
-enum LineStarterType {
-	PLAYER_EVENT = 0; // A Player Event.
-	ENTITY_EVENT = 1; // An Entity Event.
+enum LineStarterBlock {
+	EVENT = 0; // A Player / Entity Event.
 	FUNCTION = 2; // A Function.
 	PROCESS = 3; // A Process.
 }

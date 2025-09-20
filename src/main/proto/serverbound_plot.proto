@@ -15,7 +15,7 @@ message GetByLocationOperation {
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message GetByBlockOperation {
-	LineStarterType type = 1; // The type of line starter of the code block to get the template for.
+	LineStarterBlock type = 1; // The type of line starter of the code block to get the template for.
 	string action = 2; // The sign action name of the code block to get the template for.
 }
 
@@ -39,7 +39,7 @@ message DeleteByLocationOperation {
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message DeleteByBlockOperation {
-	LineStarterType type = 1; // The type of line starter of the code block to delete.
+	LineStarterBlock type = 1; // The type of line starter of the code block to delete.
 	string action = 2; // The sign action name of the code block to delete.
 }
 
@@ -57,7 +57,7 @@ message ReplaceByLocationOperation {
 // and that the code block exists,
 // and that the template will not override any blocks nor exit the plot bounds (except for the blocks being replaced).
 message ReplaceByBlockOperation {
-	LineStarterType type = 1; // The type of line starter of the code block to replace.
+	LineStarterBlock type = 1; // The type of line starter of the code block to replace.
 	string action = 2; // The sign action name of the code block to replace.
 	Template template = 3; // The template to replace the code block with.
 }
