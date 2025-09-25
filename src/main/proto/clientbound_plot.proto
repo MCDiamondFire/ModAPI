@@ -78,3 +78,10 @@ message S2CPlotLineStarters {
 
 	repeated CodeLineStarter line_starter = 1;
 }
+
+// Sent when the plot finishes a lag measurement,
+// requires the player to have developer permissions on the plot,
+// and be profiling the plot.
+message S2CPlotProfiling {
+	int32 cpu_usage = 1; // The CPU usage of the plot in percentage (0 to 100).
+}
