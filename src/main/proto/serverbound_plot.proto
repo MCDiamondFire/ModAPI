@@ -8,10 +8,10 @@ option java_multiple_files = true;
 // requires the player to have developer permissions on the plot,
 // and the location being a valid line starter.
 message GetByLocationOperation {
-	Location location = 1; // The location of the code block to get the template for.
+	WorldLocation location = 1; // The location of the code block to get the template for.
 }
 
-// Requests to get the template for the code block with the given line starter type and action name,
+// Requests to get the template for the given line starter type and action name,
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message GetByBlockOperation {
@@ -24,7 +24,7 @@ message GetByBlockOperation {
 // the location being a valid line starter,
 // and that the template will not override any blocks nor exit the plot bounds.
 message PlaceOperation {
-	Location location = 1; // The location to place the template at.
+	WorldLocation location = 1; // The location to place the template at.
 	Template template = 2; // The template to place.
 }
 
@@ -32,7 +32,7 @@ message PlaceOperation {
 // requires the player to have developer permissions on the plot,
 // and the location being a valid line starter.
 message DeleteByLocationOperation {
-	Location location = 1; // The location of the code block to delete.
+	WorldLocation location = 1; // The location of the code block to delete.
 }
 
 // Requests to delete the code block with the given line starter type and action name,
@@ -48,7 +48,7 @@ message DeleteByBlockOperation {
 // the location being a valid line starter,
 // and that the template will not override any blocks nor exit the plot bounds (except for the blocks being replaced).
 message ReplaceByLocationOperation {
-	Location location = 1; // The location of the code block to replace.
+	WorldLocation location = 1; // The location of the code block to replace.
 	Template template = 2; // The template to replace the code block with.
 }
 

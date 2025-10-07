@@ -35,8 +35,8 @@ message S2CPlotInfo {
 	}
 
 	message Region {
-		Location min = 1; // The minimum corner of the region.
-		Location max = 2; // The maximum corner of the region.
+		WorldLocation min = 1; // The minimum corner of the region.
+		WorldLocation max = 2; // The maximum corner of the region.
 	}
 
 	int32 id = 1; // The identifier of the plot.
@@ -75,7 +75,7 @@ message S2CMultiCodeOperationsResult {
 // requires the player to have developer permissions on the plot.
 message S2CPlotLineStarters {
 	message CodeLineStarter {
-		Location location = 1;
+		WorldLocation location = 1;
 		optional S2CChestReference chest = 2;
 	}
 
