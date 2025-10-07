@@ -5,6 +5,8 @@ option java_package = "com.mcdiamondfire.proto.messages.serverbound.player";
 option java_multiple_files = true;
 
 // Requests to get the template for the code block at the given location,
+// if the location is a line starter, the entire line will be returned,
+// otherwise only the code block will be returned,
 // requires the player to have developer permissions on the plot,
 // and the location being a valid line starter.
 message GetByLocationOperation {
