@@ -5,6 +5,7 @@ import com.mcdiamondfire.proto.messages.clientbound.player.*;
 import com.mcdiamondfire.proto.messages.clientbound.plot.*;
 import com.mcdiamondfire.proto.messages.clientbound.server.*;
 import com.mcdiamondfire.proto.messages.serverbound.player.*;
+import com.mcdiamondfire.proto.messages.serverbound.server.C2SModAPIConnect;
 
 import java.util.*;
 
@@ -22,6 +23,7 @@ public final class ModAPIMessages {
 		
 		// Server.
 		registerMessage(S2CServerInfo.class, "s2c_server_info");
+		registerMessage(S2CConnectionResult.class, "s2c_connection_result");
 		registerMessage(S2CServerBooster.class, "s2c_server_booster");
 		
 		// Plot.

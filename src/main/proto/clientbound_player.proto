@@ -82,18 +82,18 @@ message S2CChestReference {
 
 		// A standard return value, which contains the value and descriptions fields.
 		message Standard {
-			Value value_type = 1;
-			repeated string descriptions = 2;
+			Value value_type = 1; // The value type of the return value.
+			repeated string descriptions = 2; // The description of the return value as a list of serialized components in JSON format.
 		}
 
 		// A simple return value, which only contains a text field.
 		message Simple {
-			string text = 1;
+			string text = 1; // The text of the return value as a serialized component in JSON format.
 		}
 
 		oneof return_value_type {
-			Standard standard_value = 1;
-			Simple simple_value = 2;
+			Standard standard_value = 1; // A standard return value.
+			Simple simple_value = 2; // A simple return value.
 		}
 	}
 

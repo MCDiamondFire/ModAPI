@@ -34,6 +34,7 @@ message S2CPlotInfo {
 		MISCELLANEOUS = 12; // Plots that don't really fit the other categories!
 	}
 
+	// Represents a cuboid region in the world.
 	message Region {
 		WorldLocation min = 1; // The minimum corner of the region.
 		WorldLocation max = 2; // The maximum corner of the region.
@@ -59,6 +60,7 @@ message S2CPlotInfo {
 // error is true if the operation failed (see each operation for details),
 // template is not empty only if a get operation succeeded.
 message S2CCodeOperationResult {
+	// Represents an error that occurred while performing a code operation.
 	enum Error {
 		NONE = 0; // No error, the operation succeeded.
 		NO_PERMISSION = 1; // The player does not have developer permissions on the plot.
@@ -101,6 +103,7 @@ message S2CPlotLineStarters {
 // Sent when a line starter is added or removed from the plot,
 // requires the player to have developer permissions on the plot.
 message S2CPlotLineStarterUpdate {
+	// Represents an action performed on a line starter.
 	enum Action {
 		ADD = 0; // A line starter was added.
 		REMOVE = 1; // A line starter was removed.

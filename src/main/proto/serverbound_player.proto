@@ -9,10 +9,3 @@ option java_multiple_files = true;
 message C2SPlayerTeleport {
 	WorldLocation location = 1; // The location to teleport to.
 }
-
-// Notifies the server you are interested in receiving ModAPI messages.
-// This must be sent before any ModAPI messages are sent by the client.
-// If the protocol versions are major version incompatible, the request will be voided.
-message C2SModAPIConnect {
-	string protocol_version = 1; // The version of the protocol the client is using.
-}

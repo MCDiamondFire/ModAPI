@@ -3,7 +3,7 @@ syntax = "proto3";
 option java_package = "com.mcdiamondfire.proto.messages.clientbound.server";
 option java_multiple_files = true;
 
-// Sent when the player joins the server.
+// Sent when the player joins the server, the server is ready to accept a S2CModAPIConnect message.
 message S2CServerInfo {
 	// Represents a server type.
 	enum DFServerType {
@@ -20,6 +20,16 @@ message S2CServerInfo {
 	string bungee_name = 2; // The identifier of the server.
 	string patch_version = 3; // The patch version of the server.
 	DFServerType server_type = 4; // The type of the server.
+}
+
+// Sent as a response to a C2SModAPIConnect message.
+message S2CConnectionResult {
+	enum Error {
+		NONE = 0; // No error, the connection was successful.
+		INVALID_PROTOCOL = 1; // The given protocol version is invalid.
+		INCOMPATIBLE_PROTOCOL = 2; // The given protocol version is incompatible with the server.
+	}
+	optional Error error = 1; // The error, if any.
 }
 
 // Sent when the player joins the server.
