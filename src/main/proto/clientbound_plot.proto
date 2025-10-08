@@ -59,8 +59,23 @@ message S2CPlotInfo {
 // error is true if the operation failed (see each operation for details),
 // template is not empty only if a get operation succeeded.
 message S2CCodeOperationResult {
+	enum Error {
+		NONE = 0; // No error, the operation succeeded.
+		NO_PERMISSION = 1; // The player does not have developer permissions on the plot.
+		NO_LOCATION = 2; // No location was provided for an operation that requires one.
+		INVALID_LOCATION = 3; // The provided location is not within the code region of the plot or is an invalid code block position.
+		NO_ACTION = 4; // No action was provided for an operation that requires one.
+		ACTION_NOT_FOUND = 5; // The provided action or line starter was not found on the plot.
+		NO_LOCATION_OR_TEMPLATE = 6; // Either a location or a template were not provided for an operation that requires both.
+		INVALID_LOCATION_OR_TEMPLATE = 7; // The provided location is invalid or the provided template is not a valid code template.
+		TEMPLATE_NOT_FIT = 8; // The provided template does not fit in the code region at the provided location.
+		INVALID_TEMPLATE = 10; // The provided template is not a valid code template.
+		INTERNAL_ERROR = 9; // An internal error occurred while performing the operation.
+		NO_OPERATION = 11; // No operation was provided.
+	}
+
 	oneof result {
-		bool error = 1; // true if the operation failed, false otherwise
+		Error error = 1; // true if the operation failed, false otherwise
 		string template = 2; // The template JSON string, only if a get operation succeeded.
 	}
 }
