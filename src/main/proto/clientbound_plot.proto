@@ -86,15 +86,27 @@ message S2CMultiCodeOperationsResult {
 	repeated S2CCodeOperationResult results = 1; // The results of all operations requested.
 }
 
-// Sent when the player joins a plot or when the line starters change,
+// Represents a code line starter in the plot.
+message CodeLineStarter {
+	WorldLocation location = 1; // The location of the line starter.
+	optional S2CChestReference chest = 2; // The action reference.
+}
+
+// Sent when the player joins a plot,
 // requires the player to have developer permissions on the plot.
 message S2CPlotLineStarters {
-	message CodeLineStarter {
-		WorldLocation location = 1;
-		optional S2CChestReference chest = 2;
-	}
+	repeated CodeLineStarter line_starter = 1; // The line starters on the plot.
+}
 
-	repeated CodeLineStarter line_starter = 1;
+// Sent when a line starter is added or removed from the plot,
+// requires the player to have developer permissions on the plot.
+message S2CPlotLineStarterUpdate {
+	enum Action {
+		ADD = 0; // A line starter was added.
+		REMOVE = 1; // A line starter was removed.
+	}
+	CodeLineStarter line_starter = 1; // The line starter that was added or removed.
+	Action action = 2; // The action performed.
 }
 
 // Sent when the plot finishes a lag measurement,

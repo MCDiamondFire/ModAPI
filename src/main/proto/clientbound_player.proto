@@ -35,7 +35,8 @@ message S2CPlayerSwitchMode {
 	PlayerMode mode = 1; // The mode the player is in.
 }
 
-// Sent when the player opens a code chest.
+// Represents a reference to an action and its arguments,
+// sent when the player opens a code chest and bundled in other messages.
 message S2CChestReference {
 	// Represents a value type.
 	enum Value {
