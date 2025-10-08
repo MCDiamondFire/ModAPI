@@ -43,6 +43,7 @@ public final class ModAPIMessages {
 		
 		// Player.
 		registerMessage(C2SPlayerTeleport.class, "c2s_player_teleport");
+		registerMessage(C2SModAPIConnect.class, "mc2s_modapi_connect");
 		
 	}
 	
