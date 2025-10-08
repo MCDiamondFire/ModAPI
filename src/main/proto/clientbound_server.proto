@@ -3,8 +3,13 @@ syntax = "proto3";
 option java_package = "com.mcdiamondfire.proto.messages.clientbound.server";
 option java_multiple_files = true;
 
-// Sent when the player joins the server, the server is ready to accept a S2CModAPIConnect message.
-message S2CServerInfo {
+// Sent by the server when the player connects to it, respond with C2SHandshakeRequest.
+message S2CHello {
+
+}
+
+// Represents information about the server.
+message ServerInfo {
 	// Represents a server type.
 	enum DFServerType {
 		MAIN = 0; // Main nodes.
@@ -22,14 +27,18 @@ message S2CServerInfo {
 	DFServerType server_type = 4; // The type of the server.
 }
 
-// Sent as a response to a C2SModAPIConnect message.
-message S2CConnectionResult {
+// Sent as a response to a C2SHandshakeRequest message.
+message S2CHandshakeResponse {
 	enum Error {
 		NONE = 0; // No error, the connection was successful.
 		INVALID_PROTOCOL = 1; // The given protocol version is invalid.
 		INCOMPATIBLE_PROTOCOL = 2; // The given protocol version is incompatible with the server.
+		ALREADY_CONNECTED = 3; // The player is already connected.
 	}
-	optional Error error = 1; // The error, if any.
+	oneof result {
+		Error error = 1; // The error that occurred, if any.
+		ServerInfo server_info = 2; // The server info, if the connection was successful.
+	}
 }
 
 // Sent when the player joins the server.

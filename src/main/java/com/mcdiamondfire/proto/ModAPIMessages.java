@@ -5,7 +5,7 @@ import com.mcdiamondfire.proto.messages.clientbound.player.*;
 import com.mcdiamondfire.proto.messages.clientbound.plot.*;
 import com.mcdiamondfire.proto.messages.clientbound.server.*;
 import com.mcdiamondfire.proto.messages.serverbound.player.*;
-import com.mcdiamondfire.proto.messages.serverbound.server.C2SModAPIConnect;
+import com.mcdiamondfire.proto.messages.serverbound.server.C2SHandshakeRequest;
 
 import java.util.*;
 
@@ -22,8 +22,8 @@ public final class ModAPIMessages {
 		// Client-bound.
 		
 		// Server.
-		registerMessage(S2CServerInfo.class, "s2c_server_info");
-		registerMessage(S2CConnectionResult.class, "s2c_connection_result");
+		registerMessage(S2CHello.class, "s2c_hlelo");
+		registerMessage(S2CHandshakeResponse.class, "s2c_handshake_response");
 		registerMessage(S2CServerBooster.class, "s2c_server_booster");
 		
 		// Plot.
@@ -42,13 +42,15 @@ public final class ModAPIMessages {
 		
 		// Server-bound.
 		
+		// Server.
+		registerMessage(C2SHandshakeRequest.class, "mc2s_handshake_request");
+		
 		// Plot.
 		registerMessage(C2SCodeOperation.class, "c2s_code_operation");
 		registerMessage(C2SMultiCodeOperations.class, "c2s_multi_code_operations");
 		
 		// Player.
 		registerMessage(C2SPlayerTeleport.class, "c2s_player_teleport");
-		registerMessage(C2SModAPIConnect.class, "mc2s_modapi_connect");
 		
 	}
 	
