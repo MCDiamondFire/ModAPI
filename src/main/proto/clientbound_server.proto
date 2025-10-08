@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "clientbound_player.proto";
 
 option java_package = "com.mcdiamondfire.proto.messages.clientbound.server";
 option java_multiple_files = true;
@@ -35,9 +36,13 @@ message S2CHandshakeResponse {
 		INCOMPATIBLE_PROTOCOL = 2; // The given protocol version is incompatible with the server.
 		ALREADY_CONNECTED = 3; // The player is already connected.
 	}
+	message Success {
+		ServerInfo server_info = 1; // The server info.
+		PlayerInfo player_info = 2; // The player's info.
+	}
 	oneof result {
 		Error error = 1; // The error that occurred, if any.
-		ServerInfo server_info = 2; // The server info, if the connection was successful.
+		Success success = 2; // The server and player info, if the connection was successful.
 	}
 }
 

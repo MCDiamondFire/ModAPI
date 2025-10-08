@@ -4,8 +4,14 @@ import "data_type.proto";
 option java_package = "com.mcdiamondfire.proto.messages.clientbound.player";
 option java_multiple_files = true;
 
-// Sent when the player joins the server.
-message S2CPlayerCurrency {
+// Represents general information about the player.
+message PlayerInfo {
+	PlayerCurrency currency = 1; // The player's currency information.
+	PlayerPermissions permissions = 2; // The player's permissions.
+}
+
+// Represents the player's currency information.
+message PlayerCurrency {
 	// Represents an unclaimed ticket bundle.
 	message TicketBundle {
 		string event_name = 1; // The name of the event the bundle is from.
@@ -19,8 +25,8 @@ message S2CPlayerCurrency {
 	int32 sparks = 4; // The amount of sparks the player has.
 }
 
-// Sent when the player joins the server, admins will have all permissions set to their highest level.
-message S2CPlayerPermissions {
+// Represents the player's permissions, admins will have all permissions set to their highest level.
+message PlayerPermissions {
 	int32 donor = 1; // The donor rank level of the player. (Noble, Emperor, Mythic, Overlord)
 	int32 vip = 2; // The VIP rank level of the player. (VIP)
 	int32 qa = 3; // The QA rank level of the player. (QA)

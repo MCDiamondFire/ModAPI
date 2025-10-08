@@ -22,7 +22,7 @@ public final class ModAPIMessages {
 		// Client-bound.
 		
 		// Server.
-		registerMessage(S2CHello.class, "s2c_hlelo");
+		registerMessage(S2CHello.class, "s2c_hello");
 		registerMessage(S2CHandshakeResponse.class, "s2c_handshake_response");
 		registerMessage(S2CServerBooster.class, "s2c_server_booster");
 		
@@ -35,8 +35,6 @@ public final class ModAPIMessages {
 		registerMessage(S2CPlotProfiling.class, "s2c_plot_profiling");
 		
 		// Player.
-		registerMessage(S2CPlayerCurrency.class, "s2c_player_currency");
-		registerMessage(S2CPlayerPermissions.class, "s2c_player_permissions");
 		registerMessage(S2CPlayerSwitchMode.class, "s2c_player_switch_mode");
 		registerMessage(S2CChestReference.class, "s2c_chest_reference");
 		
