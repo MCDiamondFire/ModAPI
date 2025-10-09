@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_package = "com.mcdiamondfire.proto.messages.common";
+option java_multiple_files = true;
+
+// Represents general information about the player.
+message PlayerInfo {
+  PlayerCurrency currency = 1; // The player's currency information.
+  PlayerPermissions permissions = 2; // The player's permissions.
+}
+
+// Represents the player's currency information.
+message PlayerCurrency {
+  // Represents an unclaimed ticket bundle.
+  message TicketBundle {
+    string event_name = 1; // The name of the event the bundle is from.
+    string prize_name = 2; // The name of the prize the bundle is for.
+    int32 ticket_amount = 3; // The amount of tickets in the bundle.
+  }
+
+  int32 tokens = 1; // The amount of tokens the player has.
+  int32 tickets = 2; // The amount of tickets the player has.
+  repeated TicketBundle ticket_bundles = 3; // The unclaimed ticket bundles the player has.
+  int32 sparks = 4; // The amount of sparks the player has.
+}
+
+// Represents the player's permissions, admins will have all permissions set to their highest level.
+message PlayerPermissions {
+  int32 donor = 1; // The donor rank level of the player. (Noble, Emperor, Mythic, Overlord)
+  int32 vip = 2; // The VIP rank level of the player. (VIP)
+  int32 qa = 3; // The QA rank level of the player. (QA)
+  int32 youtuber = 4; // The YouTube rank level of the player. (YouTube)
+  int32 support = 5; // The support rank level of the player. (JrHelper, Helper, SrHelper)
+  int32 moderation = 6; // The mod rank level of the player. (JrMod, Mod, SrMod)
+  int32 admin = 7; // The admin rank level of the player. (Dev, Admin, Owner)
+}

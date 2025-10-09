@@ -1,0 +1,44 @@
+syntax = "proto3";
+import "common/common_player.proto";
+import "common/common_server.proto";
+
+option java_package = "com.mcdiamondfire.proto.messages.clientbound.server";
+option java_multiple_files = true;
+
+// Sent by the server when the player connects to it, respond with C2SHandshakeRequest.
+message S2CHello {
+
+}
+
+// Sent as a response to a C2SHandshakeRequest message.
+message S2CHandshakeResponse {
+  enum Error {
+    NONE = 0; // No error, the connection was successful.
+    INVALID_PROTOCOL = 1; // The given protocol version is invalid.
+    INCOMPATIBLE_PROTOCOL = 2; // The given protocol version is incompatible with the server.
+    ALREADY_CONNECTED = 3; // The player is already connected.
+  }
+  message Success {
+    ServerInfo server_info = 1; // The server info.
+    PlayerInfo player_info = 2; // The player's info.
+  }
+  oneof result {
+    Error error = 1; // The error that occurred, if any.
+    Success success = 2; // The server and player info, if the connection was successful.
+  }
+}
+
+// Sent when the player joins the server.
+message S2CServerBooster {
+  // Represents an active booster.
+  message ActiveBooster {
+    bool tipped = 1; // Whether the booster was tipped by the player.
+    int32 multiplier = 2; // The multiplier of the booster (e.g. 2 for 2x).
+    int64 time_remaining = 3; // The time remaining of the booster in milliseconds.
+    string user_name = 4; // The name of the player who activated the booster.
+    string user_uuid = 5; // The UUID of the player who activated the booster (36 characters including dashes).
+  }
+
+  bool is_active = 1; // Whether a booster is currently active.
+  optional ActiveBooster active_booster = 2; // The active booster, if any.
+}

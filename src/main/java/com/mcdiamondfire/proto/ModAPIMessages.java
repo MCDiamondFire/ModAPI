@@ -5,6 +5,8 @@ import com.mcdiamondfire.proto.messages.clientbound.player.*;
 import com.mcdiamondfire.proto.messages.clientbound.plot.*;
 import com.mcdiamondfire.proto.messages.clientbound.server.*;
 import com.mcdiamondfire.proto.messages.serverbound.player.*;
+import com.mcdiamondfire.proto.messages.serverbound.plot.C2SCodeOperation;
+import com.mcdiamondfire.proto.messages.serverbound.plot.C2SMultiCodeOperations;
 import com.mcdiamondfire.proto.messages.serverbound.server.C2SHandshakeRequest;
 
 import java.util.*;

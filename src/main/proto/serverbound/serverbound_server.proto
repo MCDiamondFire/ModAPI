@@ -1,12 +1,11 @@
 syntax = "proto3";
-import "data_type.proto";
 
 option java_package = "com.mcdiamondfire.proto.messages.serverbound.server";
 option java_multiple_files = true;
 
 // Notifies the server you are interested in receiving ModAPI messages.
 // This must be sent before any ModAPI messages are sent by the client.
-// A S2CConnectionResult message will be sent in response.
+// A S2CHandshakeResponse message will be sent in response.
 message C2SHandshakeRequest {
   string protocol_version = 1; // The version of the protocol the client is using.
 }

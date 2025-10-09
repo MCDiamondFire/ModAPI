@@ -1,7 +1,7 @@
 syntax = "proto3";
-import "data_type.proto";
+import "common/data_type.proto";
 
-option java_package = "com.mcdiamondfire.proto.messages.serverbound.player";
+option java_package = "com.mcdiamondfire.proto.messages.serverbound.plot";
 option java_multiple_files = true;
 
 // Requests to get the template for the code block at the given location,
@@ -10,15 +10,15 @@ option java_multiple_files = true;
 // requires the player to have developer permissions on the plot,
 // and the location being a valid line starter.
 message GetByLocationOperation {
-	WorldLocation location = 1; // The location of the code block to get the template for.
+  WorldLocation location = 1; // The location of the code block to get the template for.
 }
 
 // Requests to get the template for the given line starter type and action name,
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message GetByBlockOperation {
-	LineStarterBlock type = 1; // The type of line starter of the code block to get the template for.
-	string action = 2; // The sign action name of the code block to get the template for.
+  LineStarterBlock type = 1; // The type of line starter of the code block to get the template for.
+  string action = 2; // The sign action name of the code block to get the template for.
 }
 
 // Requests to place a template at the given location,
@@ -26,23 +26,23 @@ message GetByBlockOperation {
 // the location being a valid line starter,
 // and that the template will not override any blocks nor exit the plot bounds.
 message PlaceOperation {
-	WorldLocation location = 1; // The location to place the template at.
-	Template template = 2; // The template to place.
+  WorldLocation location = 1; // The location to place the template at.
+  Template template = 2; // The template to place.
 }
 
 // Requests to delete the code block at the given location,
 // requires the player to have developer permissions on the plot,
 // and the location being a valid line starter.
 message DeleteByLocationOperation {
-	WorldLocation location = 1; // The location of the code block to delete.
+  WorldLocation location = 1; // The location of the code block to delete.
 }
 
 // Requests to delete the code block with the given line starter type and action name,
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message DeleteByBlockOperation {
-	LineStarterBlock type = 1; // The type of line starter of the code block to delete.
-	string action = 2; // The sign action name of the code block to delete.
+  LineStarterBlock type = 1; // The type of line starter of the code block to delete.
+  string action = 2; // The sign action name of the code block to delete.
 }
 
 // Requests to replace the code block at the given location with the given template,
@@ -50,8 +50,8 @@ message DeleteByBlockOperation {
 // the location being a valid line starter,
 // and that the template will not override any blocks nor exit the plot bounds (except for the blocks being replaced).
 message ReplaceByLocationOperation {
-	WorldLocation location = 1; // The location of the code block to replace.
-	Template template = 2; // The template to replace the code block with.
+  WorldLocation location = 1; // The location of the code block to replace.
+  Template template = 2; // The template to replace the code block with.
 }
 
 // Requests to replace the code block with the given line starter type and action name with the given template,
@@ -59,27 +59,27 @@ message ReplaceByLocationOperation {
 // and that the code block exists,
 // and that the template will not override any blocks nor exit the plot bounds (except for the blocks being replaced).
 message ReplaceByBlockOperation {
-	LineStarterBlock type = 1; // The type of line starter of the code block to replace.
-	string action = 2; // The sign action name of the code block to replace.
-	Template template = 3; // The template to replace the code block with.
+  LineStarterBlock type = 1; // The type of line starter of the code block to replace.
+  string action = 2; // The sign action name of the code block to replace.
+  Template template = 3; // The template to replace the code block with.
 }
 
 // Requests to execute a code operation.
 // An S2CCodeOperationResult message will be sent as a response, the relevant field will be set depending on the operation requested.
 message C2SCodeOperation {
-	oneof operation {
-		GetByLocationOperation get_by_location = 1; // The operation to get the template for the code block at the given location.
-		GetByBlockOperation get_by_block = 2; // The operation to get the template for the code block with the given line starter type and action name.
-		PlaceOperation place = 3; // The operation to place a template at the given location.
-		DeleteByLocationOperation delete_by_location = 4; // The operation to delete the code block at the given location.
-		DeleteByBlockOperation delete_by_block = 5; // The operation to delete the code block with the given line starter type and action name.
-		ReplaceByLocationOperation replace_by_location = 6; // The operation to replace the code block at the given location with the given template.
-		ReplaceByBlockOperation replace_by_block = 7; // The operation to replace the code block with the given line starter type and action name with the given template.
-	}
+  oneof operation {
+    GetByLocationOperation get_by_location = 1; // The operation to get the template for the code block at the given location.
+    GetByBlockOperation get_by_block = 2; // The operation to get the template for the code block with the given line starter type and action name.
+    PlaceOperation place = 3; // The operation to place a template at the given location.
+    DeleteByLocationOperation delete_by_location = 4; // The operation to delete the code block at the given location.
+    DeleteByBlockOperation delete_by_block = 5; // The operation to delete the code block with the given line starter type and action name.
+    ReplaceByLocationOperation replace_by_location = 6; // The operation to replace the code block at the given location with the given template.
+    ReplaceByBlockOperation replace_by_block = 7; // The operation to replace the code block with the given line starter type and action name with the given template.
+  }
 }
 
 // Requests to execute multiple code operations in one message.
 // An S2CMultiCodeOperationResult message will be sent as a response, containing the results of all operations requested.
 message C2SMultiCodeOperations {
-	repeated C2SCodeOperation operations = 1; // The operations to perform.
+  repeated C2SCodeOperation operations = 1; // The operations to perform.
 }

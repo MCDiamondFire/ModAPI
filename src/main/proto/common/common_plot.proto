@@ -1,0 +1,35 @@
+syntax = "proto3";
+import "common/data_type.proto";
+import "common/common_code.proto";
+
+option java_package = "com.mcdiamondfire.proto.messages.common";
+option java_multiple_files = true;
+
+// Represents a cuboid region in the world.
+message Region {
+  WorldLocation min = 1; // The minimum corner of the region.
+  WorldLocation max = 2; // The maximum corner of the region.
+}
+
+// Represents a tag, also known as a category, a plot can have.
+enum PlotTag {
+  ARCADE = 0; // One or multiple fast and fun minigames!
+  VERSUS = 1; // Compete with other players!
+  COMBAT = 2; // Fight your enemies!
+  PARKOUR = 3; // Prove your platforming skills!
+  ADVENTURE = 4; // Games with many places to explore!
+  ROLEPLAY = 5; // Become part of an immersive setting or story!
+  STRATEGY = 6; // Plan your next moves to be victorious!
+  PUZZLE = 7; // Put your mind to the test!
+  TRIVIA = 8; // Try to guess the correct answers!
+  RESOURCES = 9; // Games where you collect resources to advance!
+  ELIMINATION = 10; // Be the last one standing!
+  CREATION = 11; // Games in which you can express your creativity!
+  MISCELLANEOUS = 12; // Plots that don't really fit the other categories!
+}
+
+// Represents a code line starter in the plot.
+message CodeLineStarter {
+  WorldLocation location = 1; // The location of the line starter.
+  optional ChestReference chest = 2; // The action reference.
+}

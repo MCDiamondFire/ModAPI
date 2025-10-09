@@ -1,0 +1,16 @@
+syntax = "proto3";
+import "common/data_type.proto";
+import "common/common_code.proto";
+
+option java_package = "com.mcdiamondfire.proto.messages.clientbound.player";
+option java_multiple_files = true;
+
+// Sent when the player switches modes.
+message S2CPlayerSwitchMode {
+  PlayerMode mode = 1; // The mode the player is in.
+}
+
+// Sent when the player opens a code chest.
+message S2CChestReference {
+  ChestReference reference = 1; // The action reference.
+}

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "com.mcdiamondfire.proto.messages.common";
+option java_multiple_files = true;
+
+// Represents information about the server.
+message ServerInfo {
+  // Represents a server type.
+  enum DFServerType {
+    MAIN = 0; // Main nodes.
+    BETA = 1; // Node beta.
+    DEV = 2; // Dev nodes.
+    PUBLIC_TEST = 3; // Unused.
+    PUBLIC_EVENT = 4; // Event node.
+    LOCAL_DEV = 5; // Local dev servers.
+    PRIVATE = 6; // Private nodes.
+  }
+
+  string protocol_version = 1; // The version of the protocol in semver format, major versions are not guaranteed to be compatible.
+  string bungee_name = 2; // The identifier of the server.
+  string patch_version = 3; // The patch version of the server.
+  DFServerType server_type = 4; // The type of the server.
+}
