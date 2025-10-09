@@ -69,7 +69,9 @@ message ChestReference {
 	string name = 2; // The name of the action as a serialized component in JSON format.
 	repeated string description = 3; // The description of the action icon as a list of serialized components in JSON format.
 	repeated Note additional_info = 4; // The additional info field of the action icon as a list of serialized components in JSON format.
-	int32 tags = 5; // The amount of tags the action has.
-	repeated Argument arguments = 6; // The arguments for the chest.
-	repeated ReturnValue return_values = 7; // The return values of the action.
+	optional int32 tags = 5; // The amount of tags the action has, only for actions.
+	repeated Argument arguments = 6; // The arguments for the chest, only for actions.
+	repeated ReturnValue return_values = 7; // The return values of the action, only for actions.
+	optional bool cancellable = 8; // Whether the action is cancellable, only for events.
+	optional bool cancelled_automatically = 9; // Whether the event is cancelled by default, only for events.
 }

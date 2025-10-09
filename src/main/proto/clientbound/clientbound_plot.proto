@@ -78,7 +78,8 @@ message S2CPlotLineStarterUpdate {
   // Represents an action performed on a line starter.
   enum Action {
     ADD = 0; // A line starter was added.
-    REMOVE = 1; // A line starter was removed.
+    CHANGE = 1; // A line starter was changed.
+    REMOVE = 2; // A line starter was removed.
   }
   CodeLineStarter line_starter = 1; // The line starter that was added or removed.
   Action action = 2; // The action performed.
