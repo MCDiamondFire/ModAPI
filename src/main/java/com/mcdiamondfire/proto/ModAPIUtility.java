@@ -1,7 +1,11 @@
 package com.mcdiamondfire.proto;
 
-import com.google.gson.*;
-import com.google.protobuf.*;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 import org.jspecify.annotations.Nullable;
 
@@ -28,7 +32,7 @@ public final class ModAPIUtility {
 	 * @return the serialized JSON string with its packet ID included
 	 * @throws InvalidProtocolBufferException if serialization fails
 	 */
-	public static String serializeMessage(final Message message) throws InvalidProtocolBufferException {
+	public static String serializeMessage(Message message) throws InvalidProtocolBufferException {
 		return serializeMessage(message, null);
 	}
 	
@@ -41,10 +45,10 @@ public final class ModAPIUtility {
 	 * @return the serialized JSON string with its packet ID and request ID included
 	 * @throws InvalidProtocolBufferException if serialization fails
 	 */
-	public static String serializeMessage(final Message message, final @Nullable Integer requestId) throws InvalidProtocolBufferException {
-		final JsonObject jsonObject = JsonParser.parseString(JsonFormat.printer().print(message)).getAsJsonObject();
+	public static String serializeMessage(Message message, @Nullable Integer requestId) throws InvalidProtocolBufferException {
+		JsonObject jsonObject = JsonParser.parseString(JsonFormat.printer().print(message)).getAsJsonObject();
 		
-		final String messageId = ModAPIMessages.getMessageId(message.getClass())
+		String messageId = ModAPIMessages.getMessageId(message.getClass())
 				.orElseThrow(() -> new IllegalArgumentException("Message class not registered: " + message.getClass().getName()));
 		
 		jsonObject.add("packet_id", new JsonPrimitive(messageId));
@@ -66,20 +70,20 @@ public final class ModAPIUtility {
 	 * @throws RuntimeException               if reflection fails to create a new builder instance
 	 * @throws ClassCastException             if the packet ID is not of the expected type
 	 */
-	public static ModAPIMessage deserializeMessage(final String json) throws InvalidProtocolBufferException {
+	public static ModAPIMessage deserializeMessage(String json) throws InvalidProtocolBufferException {
 		try {
-			final JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-			final String packetId = jsonObject.get("packet_id").getAsString();
-			final Integer requestId = jsonObject.has("request_id") ? jsonObject.get("request_id").getAsInt() : null;
+			JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+			String packetId = jsonObject.get("packet_id").getAsString();
+			Integer requestId = jsonObject.has("request_id") ? jsonObject.get("request_id").getAsInt() : null;
 			
-			final Optional<Class<? extends Message>> clazz = ModAPIMessages.getMessageClass(packetId);
+			Optional<Class<? extends Message>> clazz = ModAPIMessages.getMessageClass(packetId);
 			if (clazz.isEmpty()) {
 				throw new IllegalStateException("No message class registered for packet ID: " + packetId);
 			}
-			final Message.Builder builder = (Message.Builder) clazz.get().getMethod("newBuilder").invoke(null);
+			Message.Builder builder = (Message.Builder) clazz.get().getMethod("newBuilder").invoke(null);
 			JSON_PARSER.merge(json, builder);
 			return new ModAPIMessage(packetId, builder.build(), requestId);
-		} catch (final NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			throw new RuntimeException("Failed to deserialize message.", e);
 		}
 	}

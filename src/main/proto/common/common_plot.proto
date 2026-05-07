@@ -7,8 +7,8 @@ option java_multiple_files = true;
 
 // Represents a cuboid region in the world.
 message Region {
-  WorldLocation min = 1; // The minimum corner of the region.
-  WorldLocation max = 2; // The maximum corner of the region.
+  APILocation min = 1; // The minimum corner of the region.
+  APILocation max = 2; // The maximum corner of the region.
 }
 
 // Represents a tag, also known as a category, a plot can have.
@@ -30,6 +30,6 @@ enum PlotTag {
 
 // Represents a code line starter in the plot.
 message CodeLineStarter {
-  WorldLocation location = 1; // The location of the line starter.
+  APILocation location = 1; // The location of the line starter.
   optional ChestReference chest = 2; // The action reference.
 }

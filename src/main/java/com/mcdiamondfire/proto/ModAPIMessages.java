@@ -1,15 +1,21 @@
 package com.mcdiamondfire.proto;
 
 import com.google.protobuf.Message;
-import com.mcdiamondfire.proto.messages.clientbound.player.*;
+import com.mcdiamondfire.proto.messages.clientbound.player.S2CChestReference;
+import com.mcdiamondfire.proto.messages.clientbound.player.S2CPlayerSwitchMode;
 import com.mcdiamondfire.proto.messages.clientbound.plot.*;
-import com.mcdiamondfire.proto.messages.clientbound.server.*;
-import com.mcdiamondfire.proto.messages.serverbound.player.*;
+import com.mcdiamondfire.proto.messages.clientbound.server.S2CHandshakeResponse;
+import com.mcdiamondfire.proto.messages.clientbound.server.S2CHello;
+import com.mcdiamondfire.proto.messages.clientbound.server.S2CServerBooster;
+import com.mcdiamondfire.proto.messages.serverbound.player.C2SPlayerTeleport;
 import com.mcdiamondfire.proto.messages.serverbound.plot.C2SCodeOperation;
 import com.mcdiamondfire.proto.messages.serverbound.plot.C2SMultiCodeOperations;
 import com.mcdiamondfire.proto.messages.serverbound.server.C2SHandshakeRequest;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Holds a mapping of ModAPI message classes to their string identifiers.
@@ -58,7 +64,7 @@ public final class ModAPIMessages {
 		// Prevent instantiation.
 	}
 	
-	private static void registerMessage(final Class<? extends Message> clazz, final String id) {
+	private static void registerMessage(Class<? extends Message> clazz, String id) {
 		if (CLASS_ID_MAP.containsKey(clazz)) {
 			throw new IllegalStateException("Message class already registered: " + clazz.getName());
 		}
@@ -75,7 +81,7 @@ public final class ModAPIMessages {
 	 * @param clazz the ModAPI message class
 	 * @return an Optional containing the identifier or empty if not registered
 	 */
-	public static Optional<String> getMessageId(final Class<? extends Message> clazz) {
+	public static Optional<String> getMessageId(Class<? extends Message> clazz) {
 		return Optional.ofNullable(CLASS_ID_MAP.get(clazz));
 	}
 	
@@ -85,7 +91,7 @@ public final class ModAPIMessages {
 	 * @param id the identifier of the ModAPI message
 	 * @return an Optional containing the ModAPI message class or empty if not registered
 	 */
-	public static Optional<Class<? extends Message>> getMessageClass(final String id) {
+	public static Optional<Class<? extends Message>> getMessageClass(String id) {
 		return Optional.ofNullable(ID_CLASS_MAP.get(id));
 	}
 	
