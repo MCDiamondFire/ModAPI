@@ -24,9 +24,6 @@ protobuf {
 		artifact = "com.google.protobuf:protoc:4.32.0"
 	}
 	plugins {
-		id("grpc") {
-			artifact = "io.grpc:protoc-gen-grpc-java:1.74.0"
-		}
 		id("doc") {
 			artifact = "io.github.pseudomuto:protoc-gen-doc:1.5.1"
 		}
@@ -34,7 +31,6 @@ protobuf {
 	generateProtoTasks {
 		ofSourceSet("main").forEach {
 			it.plugins {
-				id("grpc") { }
 				id("doc") {
 					option("markdown,docs/api/proto.md")
 				}
