@@ -3,7 +3,7 @@ import "common/data_type.proto";
 import "common/common_player.proto";
 import "common/common_plot.proto";
 
-option java_package = "com.mcdiamondfire.proto.messages.clientbound.plot";
+option java_package = "com.mcdiamondfire.modapi.messages.clientbound.plot";
 option java_multiple_files = true;
 
 // Sent when the player joins a plot.

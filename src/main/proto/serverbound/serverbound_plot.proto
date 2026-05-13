@@ -1,7 +1,7 @@
 syntax = "proto3";
 import "common/data_type.proto";
 
-option java_package = "com.mcdiamondfire.proto.messages.serverbound.plot";
+option java_package = "com.mcdiamondfire.modapi.messages.serverbound.plot";
 option java_multiple_files = true;
 
 // Requests to get the template for the code block at the given location,

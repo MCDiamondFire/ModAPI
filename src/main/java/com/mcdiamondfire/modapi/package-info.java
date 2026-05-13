@@ -1,4 +1,4 @@
 @NullMarked
-package com.mcdiamondfire.proto;
+package com.mcdiamondfire.modapi;
 
 import org.jspecify.annotations.NullMarked;

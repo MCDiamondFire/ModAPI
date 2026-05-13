@@ -1,4 +1,4 @@
-package com.mcdiamondfire.proto;
+package com.mcdiamondfire.modapi;
 
 import com.google.protobuf.Message;
 import org.jspecify.annotations.Nullable;

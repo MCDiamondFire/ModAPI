@@ -1,4 +1,4 @@
-package com.mcdiamondfire.proto;
+package com.mcdiamondfire.modapi;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

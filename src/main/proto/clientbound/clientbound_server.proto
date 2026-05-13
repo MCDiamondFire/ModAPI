@@ -2,7 +2,7 @@ syntax = "proto3";
 import "common/common_player.proto";
 import "common/common_server.proto";
 
-option java_package = "com.mcdiamondfire.proto.messages.clientbound.server";
+option java_package = "com.mcdiamondfire.modapi.messages.clientbound.server";
 option java_multiple_files = true;
 
 // Sent by the server when the player connects to it, respond with C2SHandshakeRequest.

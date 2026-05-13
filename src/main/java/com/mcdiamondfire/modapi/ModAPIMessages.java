@@ -1,16 +1,16 @@
-package com.mcdiamondfire.proto;
+package com.mcdiamondfire.modapi;
 
 import com.google.protobuf.Message;
-import com.mcdiamondfire.proto.messages.clientbound.player.S2CChestReference;
-import com.mcdiamondfire.proto.messages.clientbound.player.S2CPlayerSwitchMode;
-import com.mcdiamondfire.proto.messages.clientbound.plot.*;
-import com.mcdiamondfire.proto.messages.clientbound.server.S2CHandshakeResponse;
-import com.mcdiamondfire.proto.messages.clientbound.server.S2CHello;
-import com.mcdiamondfire.proto.messages.clientbound.server.S2CServerBooster;
-import com.mcdiamondfire.proto.messages.serverbound.player.C2SPlayerTeleport;
-import com.mcdiamondfire.proto.messages.serverbound.plot.C2SCodeOperation;
-import com.mcdiamondfire.proto.messages.serverbound.plot.C2SMultiCodeOperations;
-import com.mcdiamondfire.proto.messages.serverbound.server.C2SHandshakeRequest;
+import com.mcdiamondfire.modapi.messages.clientbound.player.S2CChestReference;
+import com.mcdiamondfire.modapi.messages.clientbound.player.S2CPlayerSwitchMode;
+import com.mcdiamondfire.modapi.messages.clientbound.plot.*;
+import com.mcdiamondfire.modapi.messages.clientbound.server.S2CHandshakeResponse;
+import com.mcdiamondfire.modapi.messages.clientbound.server.S2CHello;
+import com.mcdiamondfire.modapi.messages.clientbound.server.S2CServerBooster;
+import com.mcdiamondfire.modapi.messages.serverbound.player.C2SPlayerTeleport;
+import com.mcdiamondfire.modapi.messages.serverbound.plot.C2SCodeOperation;
+import com.mcdiamondfire.modapi.messages.serverbound.plot.C2SMultiCodeOperations;
+import com.mcdiamondfire.modapi.messages.serverbound.server.C2SHandshakeRequest;
 
 import java.util.Collections;
 import java.util.HashMap;
