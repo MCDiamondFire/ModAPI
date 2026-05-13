@@ -2,8 +2,16 @@ import com.google.protobuf.gradle.id
 
 plugins {
 	id("java")
-	id("com.google.protobuf") version "0.9.5"
-	id("maven-publish")
+	alias(libs.plugins.protobuf)
+    alias(libs.plugins.maven.publish)
+}
+
+group = project.property("GROUP").toString()
+version = project.property("VERSION_NAME").toString()
+val artifactId = project.property("POM_ARTIFACT_ID").toString()
+
+base {
+    archivesName.set(artifactId)
 }
 
 repositories {
@@ -11,21 +19,21 @@ repositories {
 }
 
 dependencies {
-	implementation("com.google.protobuf:protobuf-java:4.32.0")
-	implementation("com.google.protobuf:protobuf-java-util:4.32.0")
-	implementation("com.google.code.gson:gson:2.9.1")
+	implementation(libs.protobuf.java)
+	implementation(libs.protobuf.java.util)
+	implementation(libs.gson)
 
-	implementation("org.jspecify:jspecify:1.0.0")
+	implementation(libs.jspecify)
 }
 
 protobuf {
 	// https://github.com/google/protobuf-gradle-plugin/blob/master/examples/exampleKotlinDslProject/build.gradle.kts
 	protoc {
-		artifact = "com.google.protobuf:protoc:4.32.0"
+		artifact = libs.protoc.artifact.get().toString()
 	}
 	plugins {
 		id("doc") {
-			artifact = "io.github.pseudomuto:protoc-gen-doc:1.5.1"
+			artifact = libs.protoc.gen.doc.artifact.get().toString()
 		}
 	}
 	generateProtoTasks {
@@ -44,13 +52,26 @@ java {
 	withSourcesJar()
 }
 
-publishing {
-	publications {
-		create<MavenPublication>("proto") {
-			from(components["java"])
-			groupId = "com.mcdiamondfire"
-			artifactId = "proto"
-			version = "1.0.0"
-		}
-	}
+tasks.withType<Jar> {
+    // Exclude proto files.
+    exclude("**/*.proto")
+    includeEmptyDirs = false
+}
+
+tasks.matching { it.name == "plainJavadocJar" }.configureEach {
+    enabled = false
+}
+
+tasks.withType<Javadoc> {
+    options {
+        val options = this as StandardJavadocDocletOptions
+        options.addStringOption("Xdoclint:none", "-quiet") // Protobuf generates DocLint warnings.
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+
+    coordinates(group.toString(), artifactId, version.toString())
 }

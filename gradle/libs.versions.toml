@@ -1,0 +1,20 @@
+[versions]
+protobuf-gradle = "0.9.5"
+maven-publish = "0.36.0"
+protobuf = "4.32.0"
+gson = "2.9.1"
+jspecify = "1.0.0"
+protoc-gen-doc = "1.5.1"
+
+[libraries]
+protobuf-java = { group = "com.google.protobuf", name = "protobuf-java", version.ref = "protobuf" }
+protobuf-java-util = { group = "com.google.protobuf", name = "protobuf-java-util", version.ref = "protobuf" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+jspecify = { group = "org.jspecify", name = "jspecify", version.ref = "jspecify" }
+
+protoc-artifact = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+protoc-gen-doc-artifact = { group = "io.github.pseudomuto", name = "protoc-gen-doc", version.ref = "protoc-gen-doc" }
+
+[plugins]
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf-gradle" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
