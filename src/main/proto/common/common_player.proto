@@ -3,12 +3,6 @@ syntax = "proto3";
 option java_package = "com.mcdiamondfire.modapi.messages.common";
 option java_multiple_files = true;
 
-// Represents general information about the player.
-message PlayerInfo {
-  PlayerCurrency currency = 1; // The player's currency information.
-  PlayerPermissions permissions = 2; // The player's permissions.
-}
-
 // Represents the player's currency information.
 message PlayerCurrency {
   // Represents an unclaimed ticket bundle.

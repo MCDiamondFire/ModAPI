@@ -20,12 +20,16 @@ message S2CHandshakeResponse {
   }
   message Success {
     ServerInfo server_info = 1; // The server info.
-    PlayerInfo player_info = 2; // The player's info.
   }
   oneof result {
     Error error = 1; // The error that occurred, if any.
     Success success = 2; // The server and player info, if the connection was successful.
   }
+}
+
+message S2CPlayerInfo {
+  PlayerCurrency currency = 1; // The player's currency information.
+  PlayerPermissions permissions = 2; // The player's permissions.
 }
 
 // Sent when the player joins the server.
