@@ -5,73 +5,74 @@ option java_multiple_files = true;
 
 // Represents a reference to an action and its arguments,
 // sent when the player opens a code chest and bundled in other messages.
+// Display text is serialized as Minecraft components.
 message ChestReference {
-	// Represents a value type.
-	enum Value {
-		ANY_TYPE = 0; // Any value.
-		VARIABLE = 1; // Variable.
-		NUMBER = 2; // Number.
-		TEXT = 3; // String.
-		COMPONENT = 4; // Styled text.
-		LOCATION = 5; // Location.
-		VECTOR = 6; // Vector.
-		LIST = 7; // List.
-		DICT = 8; // Dictionary.
-		POTION = 9; // Potion effect.
-		PARTICLE = 10; // Particle effect.
-		SOUND = 11; // Sound.
-		SPAWN_EGG = 12; // Spawn egg.
-		PROJECTILE = 13; // Projectile.
-		VEHICLE = 14; // Vehicle.
-		ENTITY_TYPE = 15; // Entity type.
-		BLOCK = 16; // Block.
-		BLOCK_TAG = 17; // Block tag.
-		ITEM = 18; // Item.
-		BYTE = 19; // Byte.
-		NONE = 20; // None.
-	}
+  // Represents a value type.
+  enum Value {
+    ANY_TYPE = 0;
+    VARIABLE = 1;
+    NUMBER = 2;
+    TEXT = 3;
+    COMPONENT = 4;
+    LOCATION = 5;
+    VECTOR = 6;
+    LIST = 7;
+    DICT = 8;
+    POTION = 9;
+    PARTICLE = 10;
+    SOUND = 11;
+    SPAWN_EGG = 12;
+    PROJECTILE = 13;
+    VEHICLE = 14;
+    ENTITY_TYPE = 15;
+    BLOCK = 16;
+    BLOCK_TAG = 17;
+    ITEM = 18;
+    BYTE = 19;
+    NONE = 20;
+  }
 
-	// Represents a note in the notes field of an action icon.
-	message Note {
-		repeated string note = 1; // The note as a list of serialized components in JSON format.
-	}
+  // Represents a note in the notes field of an action icon.
+  message Note {
+    repeated string note = 1;
+  }
 
-	// Represents an argument for the chest.
-	message Argument {
-		Value type = 1; // The type of the argument.
-		bool plural = 2; // Whether the argument is plural.
-		bool optional = 3; // Whether the argument is optional.
-		repeated string description = 4; // The description of the argument as a list of serialized components in JSON format.
-		repeated Note notes = 5; // Notes for the argument.
-	}
+  // Represents an argument for the chest.
+  message Argument {
+    Value type = 1;
+    bool plural = 2;
+    bool optional = 3;
+    repeated string description = 4;
+    repeated Note notes = 5;
+  }
 
-	// Represents a return value of an action.
-	message ReturnValue {
+  // Represents a return value of an action.
+  message ReturnValue {
 
-		// A standard return value, which contains the value and descriptions fields.
-		message Standard {
-			Value value_type = 1; // The value type of the return value.
-			repeated string descriptions = 2; // The description of the return value as a list of serialized components in JSON format.
-		}
+    // A standard return value, which contains the value and descriptions fields.
+    message Standard {
+      Value value_type = 1;
+      repeated string descriptions = 2;
+    }
 
-		// A simple return value, which only contains a text field.
-		message Simple {
-			string text = 1; // The text of the return value as a serialized component in JSON format.
-		}
+    // A simple return value, which only contains a text field.
+    message Simple {
+      string text = 1;
+    }
 
-		oneof return_value_type {
-			Standard standard_value = 1; // A standard return value.
-			Simple simple_value = 2; // A simple return value.
-		}
-	}
+    oneof return_value_type {
+      Standard standard_value = 1;
+      Simple simple_value = 2;
+    }
+  }
 
-	string material = 1; // The material of the action icon as a namespaced key (e.g. "minecraft:book").
-	string name = 2; // The name of the action as a serialized component in JSON format.
-	repeated string description = 3; // The description of the action icon as a list of serialized components in JSON format.
-	repeated Note additional_info = 4; // The additional info field of the action icon as a list of serialized components in JSON format.
-	optional int32 tags = 5; // The amount of tags the action has, only for actions.
-	repeated Argument arguments = 6; // The arguments for the chest, only for actions.
-	repeated ReturnValue return_values = 7; // The return values of the action, only for actions.
-	optional bool cancellable = 8; // Whether the action is cancellable, only for events.
-	optional bool cancelled_automatically = 9; // Whether the event is cancelled by default, only for events.
+  string material = 1;
+  string name = 2;
+  repeated string description = 3;
+  repeated Note additional_info = 4;
+  optional int32 tags = 5;
+  repeated Argument arguments = 6;
+  repeated ReturnValue return_values = 7;
+  optional bool cancellable = 8;
+  optional bool cancelled_automatically = 9;
 }

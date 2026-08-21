@@ -7,10 +7,10 @@ option java_multiple_files = true;
 
 // Sent when the player switches modes.
 message S2CPlayerSwitchMode {
-  PlayerMode mode = 1; // The mode the player is in.
+  PlayerMode mode = 1;
 }
 
 // Sent when the player opens a code chest.
 message S2CChestReference {
-  ChestReference reference = 1; // The action reference.
+  ChestReference reference = 1;
 }

@@ -5,44 +5,42 @@ import "common/common_server.proto";
 option java_package = "com.mcdiamondfire.modapi.messages.clientbound.server";
 option java_multiple_files = true;
 
-// Sent by the server when the player connects to it, respond with C2SHandshakeRequest.
-message S2CHello {
-
-}
-
 // Sent as a response to a C2SHandshakeRequest message.
 message S2CHandshakeResponse {
   enum Error {
-    NONE = 0; // No error, the connection was successful.
-    INVALID_PROTOCOL = 1; // The given protocol version is invalid.
-    INCOMPATIBLE_PROTOCOL = 2; // The given protocol version is incompatible with the server.
-    ALREADY_CONNECTED = 3; // The player is already connected.
+    NONE = 0;
+    INVALID_PROTOCOL = 1;
+    INCOMPATIBLE_PROTOCOL = 2;
+    ALREADY_CONNECTED = 3;
+    NOT_APPLICABLE = 4;
   }
+  // Contains connection metadata after a successful handshake.
   message Success {
-    ServerInfo server_info = 1; // The server info.
+    ServerInfo server_info = 1;
   }
   oneof result {
-    Error error = 1; // The error that occurred, if any.
-    Success success = 2; // The server and player info, if the connection was successful.
+    Error error = 1;
+    Success success = 2;
   }
 }
 
+// Sent after the player joins the server with their currency and permission information.
 message S2CPlayerInfo {
-  PlayerCurrency currency = 1; // The player's currency information.
-  PlayerPermissions permissions = 2; // The player's permissions.
+  PlayerCurrency currency = 1;
+  PlayerPermissions permissions = 2;
 }
 
 // Sent when the player joins the server.
 message S2CServerBooster {
   // Represents an active booster.
   message ActiveBooster {
-    bool tipped = 1; // Whether the booster was tipped by the player.
-    int32 multiplier = 2; // The multiplier of the booster (e.g. 2 for 2x).
-    int64 time_remaining = 3; // The time remaining of the booster in milliseconds.
-    string user_name = 4; // The name of the player who activated the booster.
-    string user_uuid = 5; // The UUID of the player who activated the booster (36 characters including dashes).
+    bool tipped = 1;
+    int32 multiplier = 2;
+    int64 time_remaining = 3;
+    string user_name = 4;
+    string user_uuid = 5;
   }
 
-  bool is_active = 1; // Whether a booster is currently active.
-  optional ActiveBooster active_booster = 2; // The active booster, if any.
+  bool is_active = 1;
+  optional ActiveBooster active_booster = 2;
 }

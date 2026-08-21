@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "diamondfire_modapi",
+  "version": "${version}",
+  "name": "DiamondFire ModAPI",
+  "description": "High-level client API for DiamondFire's ModAPI.",
+  "authors": [
+    "DiamondFire Dev Team"
+  ],
+  "contact": {
+    "homepage": "https://github.com/MCDiamondFire/ModAPI",
+    "sources": "https://github.com/MCDiamondFire/ModAPI"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.mcdiamondfire.modapi.fabric.internal.ModEntrypoint"
+    ]
+  },
+  "depends": {
+    "fabricloader": "*",
+    "fabric-api": "*",
+    "minecraft": ">=1.21.11",
+    "java": ">=21"
+  }
+}

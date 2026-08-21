@@ -3,13 +3,20 @@ package com.mcdiamondfire.modapi;
 import com.google.protobuf.Message;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * Represents a deserialized ModAPI message.
  *
- * @param id        the unique identifier of the ModAPI message type
+ * @param id the unique identifier of the ModAPI message type
  * @param message   the deserialized Protocol Message instance
  * @param requestId the ID of the original request message, or null if not applicable
  */
 public record ModAPIMessage(String id, Message message, @Nullable Integer requestId) {
+	
+	public ModAPIMessage {
+		Objects.requireNonNull(id, "Message ID cannot be null");
+		Objects.requireNonNull(message, "Message cannot be null");
+	}
 	
 }
