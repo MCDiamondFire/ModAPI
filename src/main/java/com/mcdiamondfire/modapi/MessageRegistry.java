@@ -5,7 +5,7 @@ import com.mcdiamondfire.modapi.messages.clientbound.player.S2CChestReference;
 import com.mcdiamondfire.modapi.messages.clientbound.player.S2CPlayerSwitchMode;
 import com.mcdiamondfire.modapi.messages.clientbound.plot.*;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CHandshakeResponse;
-import com.mcdiamondfire.modapi.messages.clientbound.server.S2CHello;
+import com.mcdiamondfire.modapi.messages.clientbound.server.S2CPlayerInfo;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CServerBooster;
 import com.mcdiamondfire.modapi.messages.serverbound.player.C2SPlayerTeleport;
 import com.mcdiamondfire.modapi.messages.serverbound.plot.C2SCodeOperation;
@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * Holds a mapping of ModAPI message classes to their string identifiers.
  */
-public final class ModAPIMessages {
+public final class MessageRegistry {
 	
 	private static final Map<Class<? extends Message>, String> CLASS_ID_MAP = new HashMap<>();
 	private static final Map<String, Class<? extends Message>> ID_CLASS_MAP = new HashMap<>();
@@ -30,8 +30,8 @@ public final class ModAPIMessages {
 		// Client-bound.
 		
 		// Server.
-		registerMessage(S2CHello.class, "s2c_hello");
 		registerMessage(S2CHandshakeResponse.class, "s2c_handshake_response");
+		registerMessage(S2CPlayerInfo.class, "s2c_player_info");
 		registerMessage(S2CServerBooster.class, "s2c_server_booster");
 		
 		// Plot.
@@ -60,8 +60,8 @@ public final class ModAPIMessages {
 		
 	}
 	
-	private ModAPIMessages() {
-		// Prevent instantiation.
+	private MessageRegistry() {
+		throw new UnsupportedOperationException();
 	}
 	
 	private static void registerMessage(Class<? extends Message> clazz, String id) {
@@ -81,7 +81,7 @@ public final class ModAPIMessages {
 	 * @param clazz the ModAPI message class
 	 * @return an Optional containing the identifier or empty if not registered
 	 */
-	public static Optional<String> getMessageId(Class<? extends Message> clazz) {
+	public static Optional<String> getId(Class<? extends Message> clazz) {
 		return Optional.ofNullable(CLASS_ID_MAP.get(clazz));
 	}
 	
@@ -91,7 +91,7 @@ public final class ModAPIMessages {
 	 * @param id the identifier of the ModAPI message
 	 * @return an Optional containing the ModAPI message class or empty if not registered
 	 */
-	public static Optional<Class<? extends Message>> getMessageClass(String id) {
+	public static Optional<Class<? extends Message>> getType(String id) {
 		return Optional.ofNullable(ID_CLASS_MAP.get(id));
 	}
 	
@@ -100,7 +100,7 @@ public final class ModAPIMessages {
 	 *
 	 * @return a mapping of message classes to their identifiers
 	 */
-	public static Map<Class<? extends Message>, String> getMessages() {
+	public static Map<Class<? extends Message>, String> entries() {
 		return Collections.unmodifiableMap(CLASS_ID_MAP);
 	}
 	

@@ -10,18 +10,18 @@ import com.google.protobuf.util.JsonFormat;
 import org.jspecify.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Utility class for serializing ModAPI messages to JSON format.
  */
-@SuppressWarnings("unused")
-public final class ModAPIUtility {
+public final class ModAPICodec {
 	
 	private static final JsonFormat.Parser JSON_PARSER = JsonFormat.parser().ignoringUnknownFields();
 	
-	private ModAPIUtility() {
-		// Prevent instantiation.
+	private ModAPICodec() {
+		throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -32,8 +32,8 @@ public final class ModAPIUtility {
 	 * @return the serialized JSON string with its packet ID included
 	 * @throws InvalidProtocolBufferException if serialization fails
 	 */
-	public static String serializeMessage(Message message) throws InvalidProtocolBufferException {
-		return serializeMessage(message, null);
+	public static String encode(Message message) throws InvalidProtocolBufferException {
+		return encode(message, null);
 	}
 	
 	/**
@@ -45,10 +45,12 @@ public final class ModAPIUtility {
 	 * @return the serialized JSON string with its packet ID and request ID included
 	 * @throws InvalidProtocolBufferException if serialization fails
 	 */
-	public static String serializeMessage(Message message, @Nullable Integer requestId) throws InvalidProtocolBufferException {
+	public static String encode(Message message, @Nullable Integer requestId) throws InvalidProtocolBufferException {
+		Objects.requireNonNull(message, "Message cannot be null");
+		
 		JsonObject jsonObject = JsonParser.parseString(JsonFormat.printer().print(message)).getAsJsonObject();
 		
-		String messageId = ModAPIMessages.getMessageId(message.getClass())
+		String messageId = MessageRegistry.getId(message.getClass())
 				.orElseThrow(() -> new IllegalArgumentException("Message class not registered: " + message.getClass().getName()));
 		
 		jsonObject.add("packet_id", new JsonPrimitive(messageId));
@@ -70,13 +72,15 @@ public final class ModAPIUtility {
 	 * @throws RuntimeException               if reflection fails to create a new builder instance
 	 * @throws ClassCastException             if the packet ID is not of the expected type
 	 */
-	public static ModAPIMessage deserializeMessage(String json) throws InvalidProtocolBufferException {
+	public static ModAPIMessage decode(String json) throws InvalidProtocolBufferException {
+		Objects.requireNonNull(json, "JSON cannot be null");
+		
 		try {
 			JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 			String packetId = jsonObject.get("packet_id").getAsString();
 			Integer requestId = jsonObject.has("request_id") ? jsonObject.get("request_id").getAsInt() : null;
 			
-			Optional<Class<? extends Message>> clazz = ModAPIMessages.getMessageClass(packetId);
+			Optional<Class<? extends Message>> clazz = MessageRegistry.getType(packetId);
 			if (clazz.isEmpty()) {
 				throw new IllegalStateException("No message class registered for packet ID: " + packetId);
 			}

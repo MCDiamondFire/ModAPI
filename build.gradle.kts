@@ -1,7 +1,7 @@
 import com.google.protobuf.gradle.id
 
 plugins {
-	id("java")
+	`java-library`
 	alias(libs.plugins.protobuf)
     alias(libs.plugins.maven.publish)
 }
@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-	implementation(libs.protobuf.java)
-	implementation(libs.protobuf.java.util)
+	api(libs.protobuf.java)
+	api(libs.protobuf.java.util)
 	implementation(libs.gson)
 
-	implementation(libs.jspecify)
+	compileOnly(libs.jspecify)
 }
 
 protobuf {
@@ -48,6 +48,7 @@ protobuf {
 }
 
 java {
+	toolchain.languageVersion = JavaLanguageVersion.of(21)
 	withJavadocJar()
 	withSourcesJar()
 }
