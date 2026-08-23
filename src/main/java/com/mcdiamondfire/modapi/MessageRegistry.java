@@ -7,6 +7,7 @@ import com.mcdiamondfire.modapi.messages.clientbound.plot.*;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CHandshakeResponse;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CPlayerInfo;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CServerBooster;
+import com.mcdiamondfire.modapi.messages.serverbound.player.C2SPlayerMode;
 import com.mcdiamondfire.modapi.messages.serverbound.player.C2SPlayerTeleport;
 import com.mcdiamondfire.modapi.messages.serverbound.plot.C2SCodeOperation;
 import com.mcdiamondfire.modapi.messages.serverbound.plot.C2SMultiCodeOperations;
@@ -49,7 +50,7 @@ public final class MessageRegistry {
 		// Server-bound.
 		
 		// Server.
-		registerMessage(C2SHandshakeRequest.class, "mc2s_handshake_request");
+		registerMessage(C2SHandshakeRequest.class, "c2s_handshake_request");
 		
 		// Plot.
 		registerMessage(C2SCodeOperation.class, "c2s_code_operation");
@@ -57,6 +58,7 @@ public final class MessageRegistry {
 		
 		// Player.
 		registerMessage(C2SPlayerTeleport.class, "c2s_player_teleport");
+		registerMessage(C2SPlayerMode.class, "c2s_player_mode");
 		
 	}
 	

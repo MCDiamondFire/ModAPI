@@ -9,3 +9,9 @@ option java_multiple_files = true;
 message C2SPlayerTeleport {
   APILocation location = 1;
 }
+
+// Switches a player's mode,
+// the player must have the permission to do so.
+message C2SPlayerMode {
+  PlayerMode mode = 1;
+}
