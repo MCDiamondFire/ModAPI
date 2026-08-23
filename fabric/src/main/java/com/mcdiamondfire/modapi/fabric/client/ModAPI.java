@@ -71,7 +71,7 @@ public final class ModAPI {
 	/**
 	 * Fired when the player joins a plot.
 	 */
-	public static final ModAPIEvent<PlotInfo> JOIN_PLOT = new ModAPIEvent<>();
+	public static final ModAPIEvent<PlotInfo> ON_JOIN_PLOT = new ModAPIEvent<>();
 	
 	/**
 	 * Fired with the line starters present when a developer joins a plot.

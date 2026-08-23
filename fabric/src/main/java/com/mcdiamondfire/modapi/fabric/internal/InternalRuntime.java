@@ -95,7 +95,7 @@ public final class InternalRuntime {
 				ModAPI.ON_CODE_CHEST_OPEN.fire(ModelMapper.chestReference(message.getReference()))
 		);
 		ClientTransport.registerMessageListener(S2CPlotInfo.class, message ->
-				ModAPI.JOIN_PLOT.fire(ModelMapper.plotInfo(message))
+				ModAPI.ON_JOIN_PLOT.fire(ModelMapper.plotInfo(message))
 		);
 		ClientTransport.registerMessageListener(S2CPlotLineStarters.class, message ->
 				ModAPI.ON_LINE_STARTER_SEND.fire(
