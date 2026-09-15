@@ -68,11 +68,12 @@ message ChestReference {
 
   string material = 1;
   string name = 2;
-  repeated string description = 3;
-  repeated Note additional_info = 4;
-  optional int32 tags = 5;
-  repeated Argument arguments = 6;
-  repeated ReturnValue return_values = 7;
-  optional bool cancellable = 8;
-  optional bool cancelled_automatically = 9;
+  string sign_name = 3;
+  repeated string description = 4;
+  repeated Note additional_info = 5;
+  optional int32 tags = 6;
+  repeated Argument arguments = 7;
+  repeated ReturnValue return_values = 8;
+  optional bool cancellable = 9;
+  optional bool cancelled_automatically = 10;
 }

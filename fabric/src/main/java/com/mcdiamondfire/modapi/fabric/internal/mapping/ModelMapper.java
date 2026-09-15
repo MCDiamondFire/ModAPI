@@ -197,6 +197,7 @@ public final class ModelMapper {
 		return new ChestReference(
 				Identifier.parse(reference.getMaterial()),
 				ComponentMapper.component(reference.getName()),
+				reference.getSignName(),
 				ComponentMapper.components(reference.getDescriptionList()),
 				reference.getAdditionalInfoList().stream().map(ModelMapper::note).toList(),
 				reference.hasTags() ? OptionalInt.of(reference.getTags()) : OptionalInt.empty(),

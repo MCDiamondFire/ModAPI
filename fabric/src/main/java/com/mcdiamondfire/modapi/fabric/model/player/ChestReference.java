@@ -12,6 +12,7 @@ import java.util.OptionalInt;
  *
  * @param material               the action icon material as a namespaced identifier
  * @param name                   the displayed action name
+ * @param signName               the action sign name
  * @param description            action description
  * @param additionalInfo         additional note sections
  * @param tagCount               the number of action tags, when applicable
@@ -23,6 +24,7 @@ import java.util.OptionalInt;
 public record ChestReference(
 		Identifier material,
 		Component name,
+		String signName,
 		List<Component> description,
 		List<Note> additionalInfo,
 		OptionalInt tagCount,

@@ -31,5 +31,7 @@ enum PlotTag {
 // Represents a code line starter in the plot.
 message CodeLineStarter {
   APILocation location = 1;
-  optional ChestReference chest = 2;
+  LineStarterBlock type = 2;
+  int32 line_length = 3;
+  optional ChestReference chest = 4;
 }
