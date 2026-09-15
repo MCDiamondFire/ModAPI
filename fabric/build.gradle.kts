@@ -1,5 +1,5 @@
 plugins {
-    id("net.fabricmc.fabric-loom-remap")
+    id("net.fabricmc.fabric-loom")
     id("com.gradleup.shadow") version "9.3.0"
     `java-library`
     `maven-publish`
@@ -20,10 +20,9 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:${providers.gradleProperty("minecraft_version").get()}")
-    mappings(loom.officialMojangMappings())
-    modCompileOnly("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
+    compileOnly("net.fabricmc:fabric-loader:${providers.gradleProperty("loader_version").get()}")
 
-    modCompileOnly("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
+    compileOnly("net.fabricmc.fabric-api:fabric-api:${providers.gradleProperty("fabric_api_version").get()}")
     compileOnly(libs.jspecify)
 
     compileOnly(parent!!)
@@ -40,7 +39,7 @@ tasks.processResources {
 }
 
 tasks.withType<JavaCompile>().configureEach {
-    options.release = 21
+    options.release = 25
 }
 
 tasks.withType<Javadoc>().configureEach {
@@ -55,17 +54,12 @@ tasks.shadowJar {
     exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA", "module-info.class")
 }
 
-tasks.remapJar {
-    dependsOn(tasks.shadowJar)
-    inputFile = tasks.shadowJar.flatMap { it.archiveFile }
-}
-
 java {
     withSourcesJar()
     withJavadocJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 val protocolSources = parent!!.tasks.named<Jar>("sourcesJar")
