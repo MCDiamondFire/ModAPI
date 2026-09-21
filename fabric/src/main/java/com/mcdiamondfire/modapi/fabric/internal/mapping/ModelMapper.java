@@ -3,21 +3,21 @@ package com.mcdiamondfire.modapi.fabric.internal.mapping;
 import com.mcdiamondfire.modapi.Semver;
 import com.mcdiamondfire.modapi.fabric.client.HandshakeException;
 import com.mcdiamondfire.modapi.fabric.model.Location;
-import com.mcdiamondfire.modapi.fabric.model.player.ChestReference;
+import com.mcdiamondfire.modapi.fabric.model.plot.ActionReference;
+import com.mcdiamondfire.modapi.fabric.model.player.Mode;
 import com.mcdiamondfire.modapi.fabric.model.player.PlayerInfo;
-import com.mcdiamondfire.modapi.fabric.model.player.PlayerMode;
-import com.mcdiamondfire.modapi.fabric.model.player.PlayerRanks;
-import com.mcdiamondfire.modapi.fabric.model.player.PlayerRanks.Rank;
+import com.mcdiamondfire.modapi.fabric.model.player.Ranks;
+import com.mcdiamondfire.modapi.fabric.model.player.Ranks.Rank;
 import com.mcdiamondfire.modapi.fabric.model.plot.*;
 import com.mcdiamondfire.modapi.fabric.model.server.ServerBooster;
 import com.mcdiamondfire.modapi.fabric.model.server.ServerInfo;
 import com.mcdiamondfire.modapi.messages.clientbound.plot.S2CPlotInfo;
 import com.mcdiamondfire.modapi.messages.clientbound.plot.S2CPlotLineStarterUpdate;
+import com.mcdiamondfire.modapi.messages.clientbound.plot.S2CPlotLineStarters;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CHandshakeResponse;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CPlayerInfo;
 import com.mcdiamondfire.modapi.messages.clientbound.server.S2CServerBooster;
-import com.mcdiamondfire.modapi.messages.common.APILocation;
-import com.mcdiamondfire.modapi.messages.common.PlayerCurrency;
+import com.mcdiamondfire.modapi.messages.common.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
@@ -70,32 +70,32 @@ public final class ModelMapper {
 					case BETA -> ServerInfo.ServerType.BETA;
 					case DEV -> ServerInfo.ServerType.DEV;
 					case PUBLIC_TEST -> ServerInfo.ServerType.PUBLIC_TEST;
-					case PUBLIC_EVENT -> ServerInfo.ServerType.EVENT;
-					case LOCAL_DEV -> ServerInfo.ServerType.LOCAL;
+					case EVENT -> ServerInfo.ServerType.EVENT;
+					case LOCAL -> ServerInfo.ServerType.LOCAL;
 					case PRIVATE -> ServerInfo.ServerType.PRIVATE;
 					case UNRECOGNIZED -> ServerInfo.ServerType.UNKNOWN;
 				}
 		);
 	}
 	
-	public static PlayerMode playerMode(com.mcdiamondfire.modapi.messages.common.PlayerMode mode) {
+	public static Mode playerMode(ApiMode mode) {
 		return switch (mode) {
-			case PLAY -> PlayerMode.PLAY;
-			case BUILD -> PlayerMode.BUILD;
-			case DEV -> PlayerMode.DEV;
-			case CODE_STALK -> PlayerMode.CODE_SPECTATE;
-			case VERIFY -> PlayerMode.VERIFY;
-			case VANISH -> PlayerMode.VANISH;
-			case IDLE -> PlayerMode.SPAWN;
-			case UNRECOGNIZED -> PlayerMode.UNKNOWN;
+			case PLAY -> Mode.PLAY;
+			case BUILD -> Mode.BUILD;
+			case DEV -> Mode.DEV;
+			case CODE_SPECTATE -> Mode.CODE_SPECTATE;
+			case VERIFY -> Mode.VERIFY;
+			case VANISH -> Mode.VANISH;
+			case SPAWN -> Mode.SPAWN;
+			case UNKNOWN, UNRECOGNIZED -> Mode.UNKNOWN;
 		};
 	}
 	
 	public static PlayerInfo playerInfo(S2CPlayerInfo info) {
-		PlayerCurrency currency = info.getCurrency();
-		com.mcdiamondfire.modapi.messages.common.PlayerPermissions permissions = info.getPermissions();
+		ApiCurrencies currency = info.getCurrency();
+		ApiRanks ranks = info.getRanks();
 		return new PlayerInfo(
-				new PlayerInfo.PlayerCurrency(
+				new PlayerInfo.Currencies(
 						currency.getTokens(),
 						currency.getTickets(),
 						currency.getTicketBundlesList().stream()
@@ -107,42 +107,19 @@ public final class ModelMapper {
 								.toList(),
 						currency.getSparks()
 				),
-				permissions(permissions)
+				playerRanks(ranks)
 		);
 	}
 	
-	private static PlayerRanks permissions(
-			com.mcdiamondfire.modapi.messages.common.PlayerPermissions permissions
-	) {
+	private static Ranks playerRanks(ApiRanks apiRanks) {
 		List<Rank> ranks = new ArrayList<>();
-		addRank(ranks, permissions.getDonor(),
-				Rank.NOBLE, Rank.EMPEROR, Rank.MYTHIC, Rank.OVERLORD
-		);
-		addRank(ranks, permissions.getVip(),
-				Rank.VIP
-		);
-		addRank(ranks, permissions.getQa(),
-				Rank.TESTER
-		);
-		addRank(ranks, permissions.getYoutuber(),
-				Rank.YOUTUBER
-		);
-		addRank(ranks, permissions.getSupport(),
-				Rank.JR_HELPER, Rank.HELPER, Rank.SR_HELPER
-		);
-		addRank(ranks, permissions.getModeration(),
-				Rank.JR_MOD, Rank.MOD, Rank.SR_MOD
-		);
-		addRank(ranks, permissions.getAdmin(),
-				Rank.DEV, Rank.ADMIN, Rank.OWNER
-		);
-		return new PlayerRanks(ranks.toArray(Rank[]::new));
-	}
-	
-	private static void addRank(List<Rank> ranks, int level, Rank... levels) {
-		if (level > 0) {
-			ranks.add(levels[Math.min(level, levels.length) - 1]);
+		for (ApiRanks.Rank rank : apiRanks.getRanksList()) {
+			if (rank == ApiRanks.Rank.UNRECOGNIZED) {
+				continue;
+			}
+			ranks.add(Rank.valueOf(rank.name()));
 		}
+		return new Ranks(ranks.toArray(Rank[]::new));
 	}
 	
 	public static ServerBooster serverBooster(S2CServerBooster booster) {
@@ -193,15 +170,15 @@ public final class ModelMapper {
 		);
 	}
 	
-	public static ChestReference chestReference(com.mcdiamondfire.modapi.messages.common.ChestReference reference) {
-		return new ChestReference(
+	public static ActionReference actionReference(ApiActionReference reference) {
+		return new ActionReference(
 				Identifier.parse(reference.getMaterial()),
 				ComponentMapper.component(reference.getName()),
 				reference.getSignName(),
 				ComponentMapper.components(reference.getDescriptionList()),
 				reference.getAdditionalInfoList().stream().map(ModelMapper::note).toList(),
 				reference.hasTags() ? OptionalInt.of(reference.getTags()) : OptionalInt.empty(),
-				reference.getArgumentsList().stream().map(argument -> new ChestReference.Argument(
+				reference.getArgumentsList().stream().map(argument -> new ActionReference.Argument(
 						valueType(argument.getType()),
 						argument.getPlural(),
 						argument.getOptional(),
@@ -216,10 +193,14 @@ public final class ModelMapper {
 		);
 	}
 	
-	public static CodeLineStarter lineStarter(com.mcdiamondfire.modapi.messages.common.CodeLineStarter lineStarter) {
-		return new CodeLineStarter(
+	public static List<LineStarter> lineStarters(S2CPlotLineStarters lineStarters) {
+		return lineStarters.getLineStarterList().stream().map(ModelMapper::lineStarter).toList();
+	}
+	
+	public static LineStarter lineStarter(ApiLineStarter lineStarter) {
+		return new LineStarter(
 				blockPosition(lineStarter.getLocation()),
-				lineStarter.hasChest() ? Optional.of(chestReference(lineStarter.getChest())) : Optional.empty()
+				lineStarter.hasChest() ? Optional.of(actionReference(lineStarter.getChest())) : Optional.empty()
 		);
 	}
 	
@@ -242,42 +223,38 @@ public final class ModelMapper {
 		return HandshakeException.Error.valueOf(error.name());
 	}
 	
-	private static Region region(com.mcdiamondfire.modapi.messages.common.Region region) {
+	private static Region region(ApiRegion region) {
 		return new Region(blockPosition(region.getMin()), blockPosition(region.getMax()));
 	}
 	
-	private static PlotTag plotTag(com.mcdiamondfire.modapi.messages.common.PlotTag tag) {
-		if (tag == com.mcdiamondfire.modapi.messages.common.PlotTag.UNRECOGNIZED) {
+	private static PlotTag plotTag(ApiPlotTag tag) {
+		if (tag == ApiPlotTag.UNRECOGNIZED) {
 			return PlotTag.UNKNOWN;
 		}
 		return PlotTag.valueOf(tag.name());
 	}
 	
-	private static ChestReference.Note note(com.mcdiamondfire.modapi.messages.common.ChestReference.Note note) {
-		return new ChestReference.Note(ComponentMapper.components(note.getNoteList()));
+	private static ActionReference.Note note(ApiActionReference.Note note) {
+		return new ActionReference.Note(ComponentMapper.components(note.getNoteList()));
 	}
 	
-	private static ChestReference.ValueType valueType(
-			com.mcdiamondfire.modapi.messages.common.ChestReference.Value value
-	) {
-		if (value == com.mcdiamondfire.modapi.messages.common.ChestReference.Value.UNRECOGNIZED) {
-			return ChestReference.ValueType.UNKNOWN;
+	private static ActionReference.ValueType valueType(ApiActionReference.Value value) {
+		if (value == ApiActionReference.Value.UNRECOGNIZED) {
+			return ActionReference.ValueType.UNKNOWN;
 		}
-		return ChestReference.ValueType.valueOf(value.name());
+		return ActionReference.ValueType.valueOf(value.name());
 	}
 	
-	private static ChestReference.ReturnValue returnValue(
-			com.mcdiamondfire.modapi.messages.common.ChestReference.ReturnValue value
-	) {
+	private static ActionReference.ReturnValue returnValue(ApiActionReference.ReturnValue value) {
 		return switch (value.getReturnValueTypeCase()) {
-			case STANDARD_VALUE -> new ChestReference.StandardReturnValue(
+			case STANDARD_VALUE -> new ActionReference.StandardReturnValue(
 					valueType(value.getStandardValue().getValueType()),
 					ComponentMapper.components(value.getStandardValue().getDescriptionsList())
 			);
-			case SIMPLE_VALUE -> new ChestReference.SimpleReturnValue(
+			case SIMPLE_VALUE -> new ActionReference.SimpleReturnValue(
 					ComponentMapper.component(value.getSimpleValue().getText())
 			);
-			case RETURNVALUETYPE_NOT_SET -> new ChestReference.SimpleReturnValue(
+			case RETURNVALUETYPE_NOT_SET -> new ActionReference.SimpleReturnValue(
 					net.minecraft.network.chat.Component.empty()
 			);
 		};

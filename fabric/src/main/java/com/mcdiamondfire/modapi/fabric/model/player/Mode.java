@@ -3,7 +3,7 @@ package com.mcdiamondfire.modapi.fabric.model.player;
 /**
  * A player's mode.
  */
-public enum PlayerMode {
+public enum Mode {
 	/// Playing a plot.
 	PLAY,
 	/// Building on a plot.

@@ -11,8 +11,8 @@ message ServerInfo {
     BETA = 1;
     DEV = 2;
     PUBLIC_TEST = 3;
-    PUBLIC_EVENT = 4;
-    LOCAL_DEV = 5;
+    EVENT = 4;
+    LOCAL = 5;
     PRIVATE = 6;
   }
 

@@ -24,10 +24,10 @@ message S2CHandshakeResponse {
   }
 }
 
-// Sent after the player joins the server with their currency and permission information.
+// Sent after the player joins the server with their currency and rank information.
 message S2CPlayerInfo {
-  PlayerCurrency currency = 1;
-  PlayerPermissions permissions = 2;
+  ApiCurrencies currency = 1;
+  ApiRanks ranks = 2;
 }
 
 // Sent when the player joins the server.

@@ -16,7 +16,6 @@ import java.util.List;
 final class ComponentMapper {
 	
 	private ComponentMapper() {
-		throw new UnsupportedOperationException();
 	}
 	
 	static Component component(String json) {

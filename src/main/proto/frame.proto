@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+import "clientbound/clientbound_player.proto";
+import "clientbound/clientbound_plot.proto";
+import "clientbound/clientbound_server.proto";
+import "serverbound/serverbound_player.proto";
+import "serverbound/serverbound_plot.proto";
+import "serverbound/serverbound_server.proto";
+
+option java_package = "com.mcdiamondfire.modapi.messages";
+option java_multiple_files = true;
+
+message ServerboundFrame {
+  oneof frame {
+    ServerboundRequest request = 1;
+    ServerboundCommand command = 2;
+  }
+}
+
+message ServerboundRequest {
+  uint64 request_id = 1;
+
+  oneof payload {
+    C2SHandshakeRequest handshake_request = 10;
+    C2SCodeOperation code_operation = 20;
+    C2SMultiCodeOperations multi_code_operations = 21;
+  }
+}
+
+message ServerboundCommand {
+  oneof payload {
+    C2SPlayerTeleport player_teleport = 30;
+    C2SPlayerMode player_mode = 31;
+  }
+}
+
+message ClientboundFrame {
+  oneof frame {
+    ClientboundResponse response = 1;
+    ClientboundEvent event = 2;
+  }
+}
+
+message ClientboundResponse {
+  uint64 request_id = 1;
+
+  oneof payload {
+    S2CHandshakeResponse handshake_response = 10;
+    S2CCodeOperationResult code_operation_result = 21;
+    S2CMultiCodeOperationsResult multi_code_operations_result = 22;
+    S2CProtocolError protocol_error = 100;
+  }
+}
+
+message ClientboundEvent {
+  oneof payload {
+    S2CPlayerInfo player_info = 11;
+    S2CServerBooster server_booster = 12;
+    S2CPlotInfo plot_info = 20;
+    S2CPlotLineStarters plot_line_starters = 23;
+    S2CPlotLineStarterUpdate plot_line_starter_update = 24;
+    S2CPlotProfiling plot_profiling = 25;
+    S2CPlayerSwitchMode player_switch_mode = 30;
+    S2CActionReference action_reference = 31;
+  }
+}
+
+message S2CProtocolError {
+  enum Code {
+    UNKNOWN = 0;
+    UNSUPPORTED_REQUEST = 1;
+    INVALID_REQUEST = 2;
+  }
+
+  Code code = 1;
+}

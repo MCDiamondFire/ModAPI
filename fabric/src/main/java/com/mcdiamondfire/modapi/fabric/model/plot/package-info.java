@@ -1,5 +1,5 @@
 /**
- * Plot state, regions, and code line metadata.
+ * Plot state, regions, and code metadata.
  */
 
 @NullMarked

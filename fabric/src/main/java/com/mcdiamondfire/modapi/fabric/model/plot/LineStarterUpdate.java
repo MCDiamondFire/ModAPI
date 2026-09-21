@@ -6,7 +6,7 @@ package com.mcdiamondfire.modapi.fabric.model.plot;
  * @param lineStarter the affected line starter
  * @param action      the kind of change
  */
-public record LineStarterUpdate(CodeLineStarter lineStarter, Action action) {
+public record LineStarterUpdate(LineStarter lineStarter, Action action) {
 	
 	/**
 	 * The kind of line starter change.

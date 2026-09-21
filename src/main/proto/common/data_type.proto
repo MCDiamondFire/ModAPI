@@ -3,6 +3,12 @@ syntax = "proto3";
 option java_package = "com.mcdiamondfire.modapi.messages.common";
 option java_multiple_files = true;
 
+// Represents a cuboid region in the world.
+message ApiRegion {
+  APILocation min = 1;
+  APILocation max = 2;
+}
+
 // Represents a location.
 message APILocation {
   double x = 1;
@@ -10,30 +16,4 @@ message APILocation {
   double z = 3;
   float pitch = 4;
   float yaw = 5;
-}
-
-// Represents a player's mode.
-enum PlayerMode {
-  PLAY = 0;
-  BUILD = 1;
-  DEV = 2;
-  CODE_STALK = 3;
-  VERIFY = 4;
-  VANISH = 5;
-  IDLE = 6;
-}
-
-// Represents a code template.
-message Template {
-  oneof template {
-    string json = 2;
-    string data = 3;
-  }
-}
-
-// Represents a line starter type.
-enum LineStarterBlock {
-  EVENT = 0;
-  FUNCTION = 2;
-  PROCESS = 3;
 }

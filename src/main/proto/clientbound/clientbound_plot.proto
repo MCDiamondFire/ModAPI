@@ -15,7 +15,7 @@ message S2CPlotInfo {
     bool is_owner = 3;
     bool is_developer = 4;
     bool is_builder = 5;
-    PlayerMode mode = 6;
+    ApiMode mode = 6;
   }
 
   int32 id = 1;
@@ -23,13 +23,13 @@ message S2CPlotInfo {
   string owner_name = 3;
   string owner_uuid = 4;
   int32 plot_size = 5;
-  Region build_region = 6;
-  Region code_region = 7;
+  ApiRegion build_region = 6;
+  ApiRegion code_region = 7;
   APILocation spawn_pos = 8;
   bool is_owner = 11;
   bool is_developer = 12;
   bool is_builder = 13;
-  repeated PlotTag tags = 14;
+  repeated ApiPlotTag tags = 14;
   string handle = 15;
   repeated PlotPlayer players = 16;
 }
@@ -69,7 +69,7 @@ message S2CMultiCodeOperationsResult {
 // Sent when the player joins a plot,
 // requires the player to have developer permissions on the plot.
 message S2CPlotLineStarters {
-  repeated CodeLineStarter line_starter = 1;
+  repeated ApiLineStarter line_starter = 1;
 }
 
 // Sent when a line starter is added or removed from the plot,
@@ -81,7 +81,7 @@ message S2CPlotLineStarterUpdate {
     CHANGE = 1;
     REMOVE = 2;
   }
-  CodeLineStarter line_starter = 1;
+  ApiLineStarter line_starter = 1;
   Action action = 2;
 }
 

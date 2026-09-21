@@ -5,7 +5,8 @@ import com.mcdiamondfire.modapi.fabric.code.CodeOperationResult;
 import com.mcdiamondfire.modapi.fabric.code.CodeTemplate;
 import com.mcdiamondfire.modapi.fabric.code.LineStarterType;
 import com.mcdiamondfire.modapi.messages.clientbound.plot.S2CCodeOperationResult;
-import com.mcdiamondfire.modapi.messages.common.Template;
+import com.mcdiamondfire.modapi.messages.common.ApiCodeTemplate;
+import com.mcdiamondfire.modapi.messages.common.ApiLineStarterType;
 import com.mcdiamondfire.modapi.messages.serverbound.plot.*;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -62,16 +63,13 @@ public final class CodeMapper {
 		};
 	}
 	
-	private static com.mcdiamondfire.modapi.messages.common.LineStarterBlock lineStarterType(LineStarterType type) {
-		return com.mcdiamondfire.modapi.messages.common.LineStarterBlock.valueOf(type.name());
+	private static ApiLineStarterType lineStarterType(LineStarterType type) {
+		return ApiLineStarterType.valueOf(type.name());
 	}
 	
-	private static Template template(CodeTemplate template) {
-		Template.Builder builder = Template.newBuilder();
-		return switch (template.format()) {
-			case JSON -> builder.setJson(template.value()).build();
-			case DATA -> builder.setData(template.value()).build();
-		};
+	private static ApiCodeTemplate template(CodeTemplate template) {
+		ApiCodeTemplate.Builder builder = ApiCodeTemplate.newBuilder();
+		return builder.setData(template.value()).build();
 	}
 	
 	private static CodeOperationResult.Error error(S2CCodeOperationResult.Error error) {

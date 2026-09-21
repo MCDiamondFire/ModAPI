@@ -3,9 +3,21 @@ syntax = "proto3";
 option java_package = "com.mcdiamondfire.modapi.messages.common";
 option java_multiple_files = true;
 
+// Represents a player's mode.
+enum ApiMode {
+  PLAY = 0;
+  BUILD = 1;
+  DEV = 2;
+  CODE_SPECTATE = 3;
+  VERIFY = 4;
+  VANISH = 5;
+  SPAWN = 6;
+  UNKNOWN = 7;
+}
+
 // Represents the player's currency information.
 // Ticket bundle names are serialized Minecraft components.
-message PlayerCurrency {
+message ApiCurrencies {
   // Represents an unclaimed ticket bundle.
   message TicketBundle {
     string event_name = 1;
@@ -19,13 +31,26 @@ message PlayerCurrency {
   int32 sparks = 4;
 }
 
-// Represents the player's permissions, admins will have all permissions set to their highest level.
-message PlayerPermissions {
-  int32 donor = 1;
-  int32 vip = 2;
-  int32 qa = 3;
-  int32 youtuber = 4;
-  int32 support = 5;
-  int32 moderation = 6;
-  int32 admin = 7;
+// Represents the player's ranks.
+message ApiRanks {
+  repeated Rank ranks = 1;
+
+  enum Rank {
+    NOBLE = 0;
+    EMPEROR = 1;
+    MYTHIC = 2;
+    OVERLORD = 3;
+    VIP = 4;
+    TESTER = 5;
+    YOUTUBER = 6;
+    JR_HELPER = 7;
+    HELPER = 8;
+    SR_HELPER = 9;
+    JR_MOD = 10;
+    MOD = 11;
+    SR_MOD = 12;
+    DEV = 13;
+    ADMIN = 14;
+    OWNER = 15;
+  }
 }

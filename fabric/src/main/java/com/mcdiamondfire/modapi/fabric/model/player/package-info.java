@@ -1,5 +1,5 @@
 /**
- * Player state and code action metadata.
+ * Player state and info.
  */
 
 @NullMarked

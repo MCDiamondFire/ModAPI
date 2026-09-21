@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "common/data_type.proto";
+import "common/common_code.proto";
 
 option java_package = "com.mcdiamondfire.modapi.messages.serverbound.plot";
 option java_multiple_files = true;
@@ -17,7 +18,7 @@ message GetByLocationOperation {
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message GetByBlockOperation {
-  LineStarterBlock type = 1;
+  ApiLineStarterType type = 1;
   string action = 2;
 }
 
@@ -27,7 +28,7 @@ message GetByBlockOperation {
 // and that the template will not override any blocks nor exit the plot bounds.
 message PlaceOperation {
   APILocation location = 1;
-  Template template = 2;
+  ApiCodeTemplate template = 2;
 }
 
 // Requests to delete the code block at the given location,
@@ -41,7 +42,7 @@ message DeleteByLocationOperation {
 // requires the player to have developer permissions on the plot,
 // and that the code block exists.
 message DeleteByBlockOperation {
-  LineStarterBlock type = 1;
+  ApiLineStarterType type = 1;
   string action = 2;
 }
 
@@ -51,7 +52,7 @@ message DeleteByBlockOperation {
 // and that the template will not override any blocks nor exit the plot bounds (except for the blocks being replaced).
 message ReplaceByLocationOperation {
   APILocation location = 1;
-  Template template = 2;
+  ApiCodeTemplate template = 2;
 }
 
 // Requests to replace the code block with the given line starter type and action name with the given template,
@@ -59,9 +60,9 @@ message ReplaceByLocationOperation {
 // and that the code block exists,
 // and that the template will not override any blocks nor exit the plot bounds (except for the blocks being replaced).
 message ReplaceByBlockOperation {
-  LineStarterBlock type = 1;
+  ApiLineStarterType type = 1;
   string action = 2;
-  Template template = 3;
+  ApiCodeTemplate template = 3;
 }
 
 // Requests to execute a code operation.

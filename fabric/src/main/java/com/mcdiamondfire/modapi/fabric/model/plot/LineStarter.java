@@ -1,6 +1,5 @@
 package com.mcdiamondfire.modapi.fabric.model.plot;
 
-import com.mcdiamondfire.modapi.fabric.model.player.ChestReference;
 import net.minecraft.core.BlockPos;
 
 import java.util.Optional;
@@ -11,6 +10,6 @@ import java.util.Optional;
  * @param location the line starter's block location
  * @param chest    the action metadata, when available
  */
-public record CodeLineStarter(BlockPos location, Optional<ChestReference> chest) {
+public record LineStarter(BlockPos location, Optional<ActionReference> chest) {
 
 }

@@ -5,10 +5,10 @@ import com.mcdiamondfire.modapi.fabric.event.ModAPIEvent;
 import com.mcdiamondfire.modapi.fabric.event.ModAPISignal;
 import com.mcdiamondfire.modapi.fabric.internal.InternalRuntime;
 import com.mcdiamondfire.modapi.fabric.model.Location;
-import com.mcdiamondfire.modapi.fabric.model.player.ChestReference;
+import com.mcdiamondfire.modapi.fabric.model.plot.ActionReference;
+import com.mcdiamondfire.modapi.fabric.model.player.Mode;
 import com.mcdiamondfire.modapi.fabric.model.player.PlayerInfo;
-import com.mcdiamondfire.modapi.fabric.model.player.PlayerMode;
-import com.mcdiamondfire.modapi.fabric.model.plot.CodeLineStarter;
+import com.mcdiamondfire.modapi.fabric.model.plot.LineStarter;
 import com.mcdiamondfire.modapi.fabric.model.plot.LineStarterUpdate;
 import com.mcdiamondfire.modapi.fabric.model.plot.PlotInfo;
 import com.mcdiamondfire.modapi.fabric.model.server.ServerBooster;
@@ -61,12 +61,12 @@ public final class ModAPI {
 	/**
 	 * Fired when the player switches modes.
 	 */
-	public static final ModAPIEvent<PlayerMode> ON_MODE_SWITCH = new ModAPIEvent<>();
+	public static final ModAPIEvent<Mode> ON_MODE_SWITCH = new ModAPIEvent<>();
 	
 	/**
 	 * Fired when the player opens a code action chest.
 	 */
-	public static final ModAPIEvent<ChestReference> ON_CODE_CHEST_OPEN = new ModAPIEvent<>();
+	public static final ModAPIEvent<ActionReference> ON_CODE_CHEST_OPEN = new ModAPIEvent<>();
 	
 	/**
 	 * Fired when the player joins a plot.
@@ -76,7 +76,7 @@ public final class ModAPI {
 	/**
 	 * Fired with the line starters present when a developer joins a plot.
 	 */
-	public static final ModAPIEvent<List<CodeLineStarter>> ON_LINE_STARTER_SEND = new ModAPIEvent<>();
+	public static final ModAPIEvent<List<LineStarter>> ON_LINE_STARTER_SEND = new ModAPIEvent<>();
 	
 	/**
 	 * Fired when a line starter is added, changed, or removed.

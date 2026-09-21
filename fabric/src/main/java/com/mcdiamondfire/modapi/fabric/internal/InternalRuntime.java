@@ -8,11 +8,11 @@ import com.mcdiamondfire.modapi.fabric.internal.mapping.ModelMapper;
 import com.mcdiamondfire.modapi.fabric.internal.network.ClientTransport;
 import com.mcdiamondfire.modapi.fabric.model.Location;
 import com.mcdiamondfire.modapi.fabric.model.server.ServerInfo;
-import com.mcdiamondfire.modapi.messages.clientbound.player.S2CChestReference;
-import com.mcdiamondfire.modapi.messages.clientbound.player.S2CPlayerSwitchMode;
-import com.mcdiamondfire.modapi.messages.clientbound.plot.*;
-import com.mcdiamondfire.modapi.messages.clientbound.server.S2CPlayerInfo;
-import com.mcdiamondfire.modapi.messages.clientbound.server.S2CServerBooster;
+import com.mcdiamondfire.modapi.messages.ClientboundResponse;
+import com.mcdiamondfire.modapi.messages.ServerboundCommand;
+import com.mcdiamondfire.modapi.messages.ServerboundRequest;
+import com.mcdiamondfire.modapi.messages.clientbound.plot.S2CCodeOperationResult;
+import com.mcdiamondfire.modapi.messages.clientbound.plot.S2CMultiCodeOperationsResult;
 import com.mcdiamondfire.modapi.messages.serverbound.player.C2SPlayerTeleport;
 import com.mcdiamondfire.modapi.messages.serverbound.plot.C2SMultiCodeOperations;
 import org.jetbrains.annotations.ApiStatus;
@@ -29,7 +29,6 @@ public final class InternalRuntime {
 	}
 	
 	public static void initialize() {
-		registerMessages();
 		ClientTransport.initialize(createLifecycleListener());
 	}
 	
@@ -42,23 +41,34 @@ public final class InternalRuntime {
 	}
 	
 	public static void teleport(Location location) {
-		ClientTransport.send(C2SPlayerTeleport.newBuilder()
-				.setLocation(ModelMapper.location(location))
+		ClientTransport.sendCommand(ServerboundCommand.newBuilder()
+				.setPlayerTeleport(C2SPlayerTeleport.newBuilder()
+						.setLocation(ModelMapper.location(location))
+						.build())
 				.build());
 	}
 	
 	public static CompletableFuture<CodeOperationResult> execute(CodeOperation operation) {
-		return ClientTransport.sendRequest(
-				CodeMapper.operation(operation),
-				S2CCodeOperationResult.class
-		).thenApply(CodeMapper::result);
+		ServerboundRequest request = ServerboundRequest.newBuilder()
+				.setCodeOperation(CodeMapper.operation(operation))
+				.build();
+		return ClientTransport.sendRequest(request, ClientboundResponse.PayloadCase.CODE_OPERATION_RESULT)
+				.thenApply(InternalRuntime::codeOperationResult)
+				.thenApply(CodeMapper::result);
 	}
 	
 	public static CompletableFuture<List<CodeOperationResult>> execute(List<? extends CodeOperation> operations) {
 		C2SMultiCodeOperations request = C2SMultiCodeOperations.newBuilder()
 				.addAllOperations(operations.stream().map(CodeMapper::operation).toList())
 				.build();
-		return ClientTransport.sendRequest(request, S2CMultiCodeOperationsResult.class)
+		ServerboundRequest serverboundRequest = ServerboundRequest.newBuilder()
+				.setMultiCodeOperations(request)
+				.build();
+		return ClientTransport.sendRequest(
+						serverboundRequest,
+						ClientboundResponse.PayloadCase.MULTI_CODE_OPERATIONS_RESULT
+				)
+				.thenApply(InternalRuntime::multiCodeOperationResult)
 				.thenApply(response -> response.getResultsList().stream().map(CodeMapper::result).toList());
 	}
 	
@@ -81,33 +91,25 @@ public final class InternalRuntime {
 		};
 	}
 	
-	private static void registerMessages() {
-		ClientTransport.registerMessageListener(S2CPlayerInfo.class, message ->
-				ModAPI.ON_PLAYER_JOIN.fire(ModelMapper.playerInfo(message))
-		);
-		ClientTransport.registerMessageListener(S2CServerBooster.class, message ->
-				ModAPI.ON_BOOSTER_UPDATE.fire(ModelMapper.serverBooster(message))
-		);
-		ClientTransport.registerMessageListener(S2CPlayerSwitchMode.class, message ->
-				ModAPI.ON_MODE_SWITCH.fire(ModelMapper.playerMode(message.getMode()))
-		);
-		ClientTransport.registerMessageListener(S2CChestReference.class, message ->
-				ModAPI.ON_CODE_CHEST_OPEN.fire(ModelMapper.chestReference(message.getReference()))
-		);
-		ClientTransport.registerMessageListener(S2CPlotInfo.class, message ->
-				ModAPI.ON_JOIN_PLOT.fire(ModelMapper.plotInfo(message))
-		);
-		ClientTransport.registerMessageListener(S2CPlotLineStarters.class, message ->
-				ModAPI.ON_LINE_STARTER_SEND.fire(
-						message.getLineStarterList().stream().map(ModelMapper::lineStarter).toList()
-				)
-		);
-		ClientTransport.registerMessageListener(S2CPlotLineStarterUpdate.class, message ->
-				ModAPI.ON_LINE_STARTER_UPDATE.fire(ModelMapper.lineStarterUpdate(message))
-		);
-		ClientTransport.registerMessageListener(S2CPlotProfiling.class, message ->
-				ModAPI.ON_PLOT_PROFILE.fire(message.getCpuUsage())
-		);
+	private static S2CCodeOperationResult codeOperationResult(ClientboundResponse response) {
+		if (response.hasCodeOperationResult()) {
+			return response.getCodeOperationResult();
+		}
+		throw unexpectedResponse(response);
+	}
+	
+	private static S2CMultiCodeOperationsResult multiCodeOperationResult(ClientboundResponse response) {
+		if (response.hasMultiCodeOperationsResult()) {
+			return response.getMultiCodeOperationsResult();
+		}
+		throw unexpectedResponse(response);
+	}
+	
+	private static IllegalStateException unexpectedResponse(ClientboundResponse response) {
+		if (response.hasProtocolError()) {
+			return new IllegalStateException("ModAPI protocol error: " + response.getProtocolError().getCode());
+		}
+		return new IllegalStateException("Unexpected ModAPI response payload: " + response.getPayloadCase());
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.mcdiamondfire.modapi.fabric.model.player;
+package com.mcdiamondfire.modapi.fabric.model.plot;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -21,7 +21,7 @@ import java.util.OptionalInt;
  * @param cancellable            whether an event is cancellable, when applicable
  * @param cancelledAutomatically whether an event is cancelled automatically, when applicable
  */
-public record ChestReference(
+public record ActionReference(
 		Identifier material,
 		Component name,
 		String signName,
@@ -35,9 +35,9 @@ public record ChestReference(
 ) {
 	
 	/**
-	 * Creates an immutable chest reference.
+	 * Creates an immutable action reference.
 	 */
-	public ChestReference {
+	public ActionReference {
 		description = List.copyOf(description);
 		additionalInfo = List.copyOf(additionalInfo);
 		arguments = List.copyOf(arguments);

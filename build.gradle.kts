@@ -20,8 +20,6 @@ repositories {
 
 dependencies {
 	api(libs.protobuf.java)
-	api(libs.protobuf.java.util)
-	implementation(libs.gson)
 
 	compileOnly(libs.jspecify)
 }

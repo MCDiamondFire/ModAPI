@@ -3,10 +3,22 @@ syntax = "proto3";
 option java_package = "com.mcdiamondfire.modapi.messages.common";
 option java_multiple_files = true;
 
+// Represents a code template.
+message ApiCodeTemplate {
+  string data = 1;
+}
+
+// Represents a line starter type.
+enum ApiLineStarterType {
+  EVENT = 0;
+  FUNCTION = 1;
+  PROCESS = 2;
+}
+
 // Represents a reference to an action and its arguments,
 // sent when the player opens a code chest and bundled in other messages.
 // Display text is serialized as Minecraft components.
-message ChestReference {
+message ApiActionReference {
   // Represents a value type.
   enum Value {
     ANY_TYPE = 0;

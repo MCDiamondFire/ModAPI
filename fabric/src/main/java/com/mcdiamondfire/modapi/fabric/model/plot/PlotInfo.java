@@ -1,7 +1,7 @@
 package com.mcdiamondfire.modapi.fabric.model.plot;
 
 import com.mcdiamondfire.modapi.fabric.model.Location;
-import com.mcdiamondfire.modapi.fabric.model.player.PlayerMode;
+import com.mcdiamondfire.modapi.fabric.model.player.Mode;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
@@ -85,7 +85,7 @@ public record PlotInfo(
 			boolean owner,
 			boolean developer,
 			boolean builder,
-			PlayerMode mode
+			Mode mode
 	) {
 	
 	}

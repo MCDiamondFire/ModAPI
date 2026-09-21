@@ -9,20 +9,20 @@ import java.util.Optional;
 /**
  * Represents the ranks of a player.
  */
-public final class PlayerRanks {
+public final class Ranks {
 	
 	private final EnumSet<Rank> ranks = EnumSet.noneOf(Rank.class);
 	
 	@ApiStatus.Internal
-	public PlayerRanks(Rank... ranks) {
+	public Ranks(Rank... ranks) {
 		Arrays.stream(ranks).forEach(this::addRank);
 	}
 	
 	/**
 	 * Returns whether the player has a rank.
 	 * <p>
-	 *     When a player has a higher level rank on the same branch
-	 *     as the given rank, the player is considered to have it.
+	 * When a player has a higher level rank on the same branch
+	 * as the given rank, the player is considered to have it.
 	 * </p>
 	 *
 	 * @param rank the rank to check
@@ -70,7 +70,7 @@ public final class PlayerRanks {
 	
 	@Override
 	public boolean equals(Object object) {
-		return object == this || object instanceof PlayerRanks other && ranks.equals(other.ranks);
+		return object == this || object instanceof Ranks other && ranks.equals(other.ranks);
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public final class PlayerRanks {
 	
 	@Override
 	public String toString() {
-		return "PlayerRanks" + ranks;
+		return "Ranks" + ranks;
 	}
 	
 	private void addRank(Rank rank) {

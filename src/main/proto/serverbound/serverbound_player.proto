@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "common/common_player.proto";
 import "common/data_type.proto";
 
 option java_package = "com.mcdiamondfire.modapi.messages.serverbound.player";
@@ -13,5 +14,5 @@ message C2SPlayerTeleport {
 // Switches a player's mode,
 // the player must have the permission to do so.
 message C2SPlayerMode {
-  PlayerMode mode = 1;
+  ApiMode mode = 1;
 }

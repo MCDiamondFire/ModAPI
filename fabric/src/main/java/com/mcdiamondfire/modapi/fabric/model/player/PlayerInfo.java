@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * Information about the player.
  *
- * @param currency the player's current currencies
- * @param ranks    the player's ranks
+ * @param currencies the player's current currencies
+ * @param ranks      the player's ranks
  */
-public record PlayerInfo(PlayerCurrency currency, PlayerRanks ranks) {
+public record PlayerInfo(Currencies currencies, Ranks ranks) {
 	
 	/**
 	 * The player's currency balances.
@@ -18,12 +18,12 @@ public record PlayerInfo(PlayerCurrency currency, PlayerRanks ranks) {
 	 * @param ticketBundles unclaimed ticket bundles
 	 * @param sparks        the player's spark balance
 	 */
-	public record PlayerCurrency(int tokens, int tickets, List<TicketBundle> ticketBundles, int sparks) {
+	public record Currencies(int tokens, int tickets, List<TicketBundle> ticketBundles, int sparks) {
 		
 		/**
 		 * Creates immutable currency information.
 		 */
-		public PlayerCurrency {
+		public Currencies {
 			ticketBundles = List.copyOf(ticketBundles);
 		}
 		

@@ -3,13 +3,14 @@
 This repository contains both the Minecraft-independent ModAPI protocol and its Fabric client mod integration.
 
 > [!WARNING]
-> This repository is a work in progress, you cannot use this yet. Packets may be changed, added, and removed at any time, and this repository may go unmaintained for long periods of time. No promises are made.
+> This repository is a work in progress, you cannot use this yet. Packets may be changed, added, and removed at any
+time, and this repository may go unmaintained for long periods of time. No promises are made.
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for information about contributing.
 
 ## Structure
 
-- `mod-api`: the independent protocol, generated Protocol Buffer messages, and JSON codec.
+- `mod-api`: the independent protocol, generated Protocol Buffer messages, and binary directional frames.
 - `mod-api-fabric`: the supported Java API for Fabric mods. It exposes typed operations, results, and models.
 
 ## Usage
@@ -43,7 +44,7 @@ Mods using the API should also declare the integration as a dependency:
 @Override
 public void onInitializeClient() {
 	// Listening to events.
-	ModAPI.MODE_SWITCH.register(mode -> LOGGER.info("Mode changed to {}", mode));
+	ModAPI.ON_MODE_SWITCH.register(mode -> LOGGER.info("Mode changed to {}", mode));
 
 	// Executing operations.
 	ModAPI.CODE.get(blockPos)

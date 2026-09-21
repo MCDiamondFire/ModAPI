@@ -5,14 +5,8 @@ import "common/common_code.proto";
 option java_package = "com.mcdiamondfire.modapi.messages.common";
 option java_multiple_files = true;
 
-// Represents a cuboid region in the world.
-message Region {
-  APILocation min = 1;
-  APILocation max = 2;
-}
-
 // Represents a tag, also known as a category, a plot can have.
-enum PlotTag {
+enum ApiPlotTag {
   ARCADE = 0;
   VERSUS = 1;
   COMBAT = 2;
@@ -29,9 +23,9 @@ enum PlotTag {
 }
 
 // Represents a code line starter in the plot.
-message CodeLineStarter {
+message ApiLineStarter {
   APILocation location = 1;
-  LineStarterBlock type = 2;
+  ApiLineStarterType type = 2;
   int32 line_length = 3;
-  optional ChestReference chest = 4;
+  optional ApiActionReference chest = 4;
 }
